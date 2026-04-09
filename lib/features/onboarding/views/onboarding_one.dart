@@ -67,13 +67,19 @@ class OnboardingOne extends GetView<OnboardingController> {
 
                   SizedBox(height: 2.h),
 
-                  customText(
-                    text: "Skip",
-                    color: whiteColor,
-                    fontSize: 15.sp,
-                    textAlign: TextAlign.center,
-                    txtDecoration: TextDecoration.underline,
-                    decorationColor: whiteColor,
+                  InkWell(
+                    onTap: (){
+                      Get.offNamed("helpsupport");
+                      print("skip tapped");
+                    },
+                    child: customText(
+                      text: "Skip",
+                      color: whiteColor,
+                      fontSize: 15.sp,
+                      textAlign: TextAlign.center,
+                      txtDecoration: TextDecoration.underline,
+                      decorationColor: whiteColor,
+                    ),
                   ),
                 ],
               ),

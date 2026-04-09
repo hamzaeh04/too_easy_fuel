@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
+import '../constants/color_constants.dart';
 import '../constants/constants_widgets.dart';
 
 Widget buttonWidget(
@@ -15,6 +16,7 @@ Widget buttonWidget(
       Color? borderColor,
       double? fontsize,
       FontWeight? fontweight,
+      bool? isGradient
     }) {
   return InkWell(
     onTap: onTap,
@@ -27,6 +29,16 @@ Widget buttonWidget(
         border: borderColor != null
             ? Border.all(color: borderColor, width: 1.2)
             : null, // 👈 Apply only if given
+
+        gradient: isGradient == true ? LinearGradient(
+          colors: [
+            blueAppBarColor.withOpacity(1),  // 80% opacity
+            blueAppBarColor.withOpacity(0.95),  // 80% opacity
+            redAppBarColor.withOpacity(0.9),
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ): null,
       ),
       child: Center(
         child: image == null ? Row(

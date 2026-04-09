@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sizer/sizer.dart';
 
 Widget customText({
   String? text,
@@ -26,7 +27,7 @@ Widget customText({
     style: TextStyle(
       fontFamily: fontFamily != null ? fontFamily : 'inter', // Ensure it is applied here
       color: color,
-      fontSize: fontSize,
+      fontSize: fontSize ?? 15.sp,
       fontWeight: fontWeight, // Ensure the weight is respected
       fontStyle: fontStyle,
       decoration: txtDecoration,
