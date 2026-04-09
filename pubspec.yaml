@@ -70,6 +70,8 @@ flutter:
     - assets/jpg/
     - assets/png/
     - assets/png/onboarding/
+    - assets/png/track_order/
+    - assets/png/fleet/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

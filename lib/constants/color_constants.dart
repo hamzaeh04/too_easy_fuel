@@ -16,9 +16,11 @@ const blueAppBarColor = Color(0xFF2B4E76);
 const redAppBarColor = Color(0xFFBA2416);
 const pinkColor = Color(0xFFFFB2BE);
 const offWhiteColor = Color(0xFFF8F8F8);
+const midYellowColor = Color(0xFFFFF8EA);
 const notificationGreyColor = Color(0xFFF3F3F9);
 const darkGreyColor = Color(0xFF818181);
 const notificationRedColor = Color(0xFFBA241612);
+const blueColor = Color(0xFF2B4E76);
 const errorColor = Colors.red;
 const success = Colors.green;
 
