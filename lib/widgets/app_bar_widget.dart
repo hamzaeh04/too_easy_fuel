@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../constants/color_constants.dart';
-import '../constants/constants_widgets.dart';
+import 'customText_widget.dart';
 
 Widget appBar(String title){
   return Container(

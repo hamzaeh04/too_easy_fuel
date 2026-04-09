@@ -19,6 +19,9 @@ const offWhiteColor = Color(0xFFF8F8F8);
 const notificationGreyColor = Color(0xFFF3F3F9);
 const darkGreyColor = Color(0xFF818181);
 const notificationRedColor = Color(0xFFBA241612);
+const errorColor = Colors.red;
+const success = Colors.green;
+
 
 
 

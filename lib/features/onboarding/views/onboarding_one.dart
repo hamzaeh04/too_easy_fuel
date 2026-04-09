@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
-import 'package:too_easy_fuel/constants/constants_widgets.dart';
+import 'package:too_easy_fuel/widgets/customText_widget.dart';
 import 'package:too_easy_fuel/features/onboarding/widgets/onboard_widget.dart';
 import 'package:too_easy_fuel/features/onboarding/widgets/slide_widget.dart';
 import 'package:too_easy_fuel/widgets/button_widget.dart';

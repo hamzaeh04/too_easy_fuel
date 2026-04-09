@@ -1,5 +1,5 @@
 import 'package:fluttertoast/fluttertoast.dart';
-import '../utils/color_constants.dart';
+import 'package:too_easy_fuel/constants/color_constants.dart';
 
 
 class CustomToast{
@@ -9,8 +9,8 @@ class CustomToast{
         toastLength: Toast.LENGTH_LONG,
         gravity: ToastGravity.BOTTOM,
         timeInSecForIosWeb: 1,
-        backgroundColor: error?ColorConstant.errorColor:ColorConstant.success,
-        textColor: ColorConstant.whiteA700,
+        backgroundColor: error?errorColor:success,
+        textColor: whiteColor,
         fontSize: 16.0
     );
   }

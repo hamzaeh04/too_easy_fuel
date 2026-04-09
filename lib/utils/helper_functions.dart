@@ -3,7 +3,7 @@
 // import 'package:get/get.dart';
 // import 'package:shared_preferences/shared_preferences.dart';
 //
-// import '../constants/constants_widgets.dart';
+// import '../constants/customText_widget.dart';
 //
 // // import 'package:intl/intl.dart';
 // // import 'package:resilient/components/custom_text.dart';

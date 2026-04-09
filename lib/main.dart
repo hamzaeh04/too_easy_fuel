@@ -3,8 +3,8 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/features/splash/views/splash_screen.dart';
-import 'package:too_easy_fuel/utils/App_Routing.dart';
-import 'package:too_easy_fuel/utils/init_binding.dart';
+import 'package:too_easy_fuel/core/routes/App_Routing.dart';
+import 'package:too_easy_fuel/core/bindings/init_binding.dart';
 
 import 'constants/color_constants.dart';
 

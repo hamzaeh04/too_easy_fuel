@@ -8,7 +8,7 @@ import 'package:too_easy_fuel/widgets/app_bar_widget.dart';
 import 'package:too_easy_fuel/widgets/background_widget.dart';
 
 import '../../../constants/color_constants.dart';
-import '../../../constants/constants_widgets.dart';
+import '../../../widgets/customText_widget.dart';
 
 class NotificationScreen extends GetView<NotificationController> {
   const NotificationScreen({super.key});

@@ -3,7 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
-import 'package:too_easy_fuel/constants/constants_widgets.dart';
+import 'package:too_easy_fuel/widgets/customText_widget.dart';
 import 'package:too_easy_fuel/features/setting/controller/setting_controller.dart';
 import 'package:too_easy_fuel/features/setting/widgets/menu_widget.dart';
 import 'package:too_easy_fuel/widgets/app_bar_widget.dart';

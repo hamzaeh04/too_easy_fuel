@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../../constants/color_constants.dart';
-import '../../../constants/constants_widgets.dart';
+import '../../../widgets/customText_widget.dart';
 
 Widget notificationWidget(
     String message, {

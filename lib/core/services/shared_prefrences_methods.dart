@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../outh_file/local_db_key.dart';
+import '../../constants/local_db_key.dart';
 
 
 class SharedPreferencesMethod {

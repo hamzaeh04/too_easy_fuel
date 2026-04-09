@@ -6,12 +6,12 @@ import 'package:too_easy_fuel/features/setting/binding/setting_binding.dart';
 import 'package:too_easy_fuel/features/setting/views/setting_screen.dart';
 import 'package:too_easy_fuel/features/splash/binding/splash_binding.dart';
 
-import '../features/notification/views/notification_screen.dart';
-import '../features/setting/views/aboutus_screen.dart';
-import '../features/setting/views/faqs_screen.dart';
-import '../features/setting/views/support_screen.dart';
-import '../features/setting/views/terms_screen.dart';
-import '../features/splash/views/splash_screen.dart';
+import '../../features/notification/views/notification_screen.dart';
+import '../../features/setting/views/aboutus_screen.dart';
+import '../../features/setting/views/faqs_screen.dart';
+import '../../features/setting/views/support_screen.dart';
+import '../../features/setting/views/terms_screen.dart';
+import '../../features/splash/views/splash_screen.dart';
 class AppRoutes {
   static List<GetPage<dynamic>> routes = [
     GetPage(name: '/', page: () => SplashScreen(),binding: SplashBinding()),

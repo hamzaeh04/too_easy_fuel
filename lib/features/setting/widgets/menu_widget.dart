@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
-import 'package:too_easy_fuel/constants/constants_widgets.dart';
+import 'package:too_easy_fuel/widgets/customText_widget.dart';
 
 import '../../../constants/color_constants.dart';
 
