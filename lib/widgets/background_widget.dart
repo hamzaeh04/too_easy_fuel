@@ -12,14 +12,22 @@ Widget radialBackground({required Widget child}) {
     decoration: BoxDecoration(
       gradient: RadialGradient(
         colors: [
-          offWhiteColor, // edge color
-          pinkColor.withValues(alpha: 0.4),     // center color
-
+          midYellowColor,
+          // center
+          offWhiteColor,                // middle
+          offWhiteColor.withOpacity(0.3), // soft transition
+          pinkColor.withOpacity(0.2),  // outer edge
         ],
-        center: Alignment(-1, 0), // slightly above center for subtle effect
-        radius: 1.4,
-        focal: Alignment(0, 0.1),
-        focalRadius: 0.6,
+        stops: [
+          0.5,  // center
+          0.75,  // off-white start
+          0.86,  // off-white fades into pink
+          1.0,  // outer pink
+        ],
+        center: Alignment(-0.25, 0.09),
+        radius: 0.9,
+        focal: Alignment(0, -0.5),
+        focalRadius: 0.05,
       ),
     ),
     child: child, // your content goes here

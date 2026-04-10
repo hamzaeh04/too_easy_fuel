@@ -70,6 +70,8 @@ flutter:
     - assets/jpg/
     - assets/png/
     - assets/png/onboarding/
+    - assets/png/track_order/
+    - assets/png/fleet/
     - assets/png/auth_image/
     - assets/png/social_icons/
 

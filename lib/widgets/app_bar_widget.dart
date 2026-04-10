@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 import '../constants/color_constants.dart';
 import 'customText_widget.dart';
 
-Widget appBar(String title){
+Widget appBar(String title, {bool? isBack = true}){
   return Container(
     height: 15.h,
     width: double.infinity,
@@ -29,6 +29,7 @@ Widget appBar(String title){
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          isBack == false ? SizedBox(width: 12.w,):
           InkWell(
             onTap: (){
               Get.back();
@@ -57,15 +58,20 @@ Widget appBar(String title){
           // SizedBox(width: 8.w,),
           Spacer(),
 
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 3.w),
-            height: 5.h,
-            width: 12.w,
-            decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xFFFFFFFF).withValues(alpha: 0.12)
+          InkWell(
+            onTap: (){
+              Get.toNamed("order");
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 3.w),
+              height: 5.h,
+              width: 12.w,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFFFFFFFF).withValues(alpha: 0.12)
+              ),
+              child: Image.asset('assets/png/search.png'),
             ),
-            child: Image.asset('assets/png/search.png'),
           ),
           InkWell(
             onTap: (){
