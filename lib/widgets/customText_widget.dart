@@ -25,7 +25,7 @@ Widget customText({
     maxLines: maxLines,
     overflow: overFlow,
     style: TextStyle(
-      fontFamily: fontFamily != null ? fontFamily : 'inter', // Ensure it is applied here
+      fontFamily: fontFamily == null ? fontFamily : 'inter', // Ensure it is applied here
       color: color,
       fontSize: fontSize ?? 15.sp,
       fontWeight: fontWeight, // Ensure the weight is respected

@@ -30,15 +30,19 @@ Widget buttonWidget(
             ? Border.all(color: borderColor, width: 1.2)
             : null, // 👈 Apply only if given
 
-        gradient: isGradient == true ? LinearGradient(
+        gradient: isGradient == true
+            ? LinearGradient(
           colors: [
-            blueAppBarColor.withOpacity(1),  // 80% opacity
-            blueAppBarColor.withOpacity(0.95),  // 80% opacity
-            redAppBarColor.withOpacity(0.9),
+            blueAppBarColor,
+            blueAppBarColor,               // start color
+            purpleColor, // very light purple start
+            // full purple at end
           ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ): null,
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          stops: [0.0, 0.7, 1], // 🔹 blue ends at 70%, purple fades in till 100%
+        )
+            : null,
       ),
       child: Center(
         child: image == null ? Row(

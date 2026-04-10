@@ -18,17 +18,11 @@ const pinkColor = Color(0xFFFFB2BE);
 const offWhiteColor = Color(0xFFF8F8F8);
 const notificationGreyColor = Color(0xFFF3F3F9);
 const darkGreyColor = Color(0xFF818181);
+const borderGreyColor = Color(0xFFCECECE);
 const notificationRedColor = Color(0xFFBA241612);
 const errorColor = Colors.red;
 const success = Colors.green;
-
-
-
-
-
-
-
-// const Color(0xFF604D7A);
+const purpleColor = Color(0xFFBA2416);
 
 
 

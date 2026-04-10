@@ -1,4 +1,11 @@
 import 'package:get/get.dart';
+import 'package:too_easy_fuel/features/auth/binding/auth_binding.dart';
+import 'package:too_easy_fuel/features/auth/controller/auth_controller.dart';
+import 'package:too_easy_fuel/features/auth/views/forgot_email_screen.dart';
+import 'package:too_easy_fuel/features/auth/views/forgot_set_password.dart';
+import 'package:too_easy_fuel/features/auth/views/login_screen.dart';
+import 'package:too_easy_fuel/features/auth/views/otp_verification.dart';
+import 'package:too_easy_fuel/features/auth/views/signup_screen.dart';
 import 'package:too_easy_fuel/features/notification/binding/notification_binding.dart';
 import 'package:too_easy_fuel/features/onboarding/binding/onboarding_binding.dart';
 import 'package:too_easy_fuel/features/onboarding/views/onboarding_one.dart';
@@ -22,6 +29,11 @@ class AppRoutes {
     GetPage(name: '/terms', page: () => TermsScreen(),binding: SettingBinding()),
     GetPage(name: '/faqs', page: () => FaqsScreen(),binding: SettingBinding()),
     GetPage(name: '/notifications', page: () => NotificationScreen(),binding: NotificationBinding()),
+    GetPage(name: '/signup', page: () => SignupScreen(),binding: AuthBinding()),
+    GetPage(name: '/otp', page: () => OtpVerification(),binding: AuthBinding()),
+    GetPage(name: '/login', page: () => LoginScreen(),binding: AuthBinding()),
+    GetPage(name: '/email', page: () => EnterEmailScreen(),binding: AuthBinding()),
+    GetPage(name: '/forgotsetpassword', page: () => ForgotSetPassword(),binding: AuthBinding()),
 
   ];
 }

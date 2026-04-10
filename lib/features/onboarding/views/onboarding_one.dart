@@ -60,7 +60,14 @@ class OnboardingOne extends GetView<OnboardingController> {
                       fontsize: 15.5.sp,
                       fontweight: FontWeight.w600,
                       onTap: (){
-                        controller.updateIndex();
+                        if(controller.selectedIndex.value == 2){
+                          Get.toNamed("signup");
+                        }
+                        else
+                          {
+                            controller.updateIndex();
+                          }
+
                       }
                     ),
                   ),
@@ -72,13 +79,18 @@ class OnboardingOne extends GetView<OnboardingController> {
                       Get.offNamed("helpsupport");
                       print("skip tapped");
                     },
-                    child: customText(
-                      text: "Skip",
-                      color: whiteColor,
-                      fontSize: 15.sp,
-                      textAlign: TextAlign.center,
-                      txtDecoration: TextDecoration.underline,
-                      decorationColor: whiteColor,
+                    child: InkWell(
+                      onTap: (){
+                        Get.toNamed("signup");
+                      },
+                      child: customText(
+                        text: "Skip",
+                        color: whiteColor,
+                        fontSize: 15.sp,
+                        textAlign: TextAlign.center,
+                        txtDecoration: TextDecoration.underline,
+                        decorationColor: whiteColor,
+                      ),
                     ),
                   ),
                 ],
