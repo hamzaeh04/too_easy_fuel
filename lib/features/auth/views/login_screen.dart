@@ -96,7 +96,7 @@ class LoginScreen extends GetView<AuthController> {
                 ),
                 SizedBox(height: 4.h),
                 buttonWidget("Login", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
-                  // Get.toNamed("email");
+                  Get.toNamed("helpsupport");
                 }),
 
               ],

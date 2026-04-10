@@ -33,6 +33,8 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
               return TextField(
                 obscureText: isPasswordHidden!.value,
                 decoration: InputDecoration(
+                  filled: true, // 🔥 IMPORTANT
+                  fillColor: Colors.white, //
                   isDense: true,
                   hintText: hinttext,
                   hintStyle: TextStyle(
@@ -105,6 +107,8 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
             })
           : TextField(
               decoration: InputDecoration(
+                filled: true, // 🔥 IMPORTANT
+                fillColor: Colors.white, //
                 isDense: true,
                 hintText: hinttext,
                 hintStyle: TextStyle(
