@@ -12,7 +12,9 @@ import 'package:too_easy_fuel/features/onboarding/views/onboarding_one.dart';
 import 'package:too_easy_fuel/features/setting/binding/setting_binding.dart';
 import 'package:too_easy_fuel/features/setting/views/setting_screen.dart';
 import 'package:too_easy_fuel/features/splash/binding/splash_binding.dart';
+import 'package:too_easy_fuel/features/subscription/views/add_payment_screen.dart';
 import 'package:too_easy_fuel/features/subscription/views/choose_your_plan.dart';
+import 'package:too_easy_fuel/features/subscription/views/payment_method_screen.dart';
 import 'package:too_easy_fuel/features/subscription/views/subscription_payment.dart';
 
 import '../../features/fleet/binding/fleet_binding.dart';
@@ -56,9 +58,12 @@ class AppRoutes {
     GetPage(name: '/seeEquipments', page: () => SeeEquipments(),binding: FleetBinding()),
     GetPage(name: '/choseplan', page: () => ChooseYourPlan()),
     GetPage(name: '/SubscriptionPayment', page: () => SubscriptionPayment()),
+    GetPage(name: '/AddPayment', page: () => AddPaymentScreen()),
+    GetPage(name: '/PaymentMethod', page: () => PaymentMethodScreen()),
     GetPage(name: '/profile', page: () => ProfileScreen(),binding: ProfileBinding()),
     GetPage(name: '/editprofile', page: () => EditProfileScreen(),binding: ProfileBinding()),
     GetPage(name: '/changePassword', page: () => ChangePasswordScreen(),binding: ProfileBinding()),
+    GetPage(name: '/notificationSetting', page: () => NotificationSettingScreen(),binding: ProfileBinding()),
     GetPage(name: '/notificationSetting', page: () => NotificationSettingScreen(),binding: ProfileBinding()),
 
   ];

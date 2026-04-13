@@ -458,7 +458,7 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                     customDialog(context, containerClr: blueAppBarColor, title: "Payment Successfully Made!", btnText: "Ok", imgPath: "assets/png/check_icon.png", imageClr: whiteColor, btnTextClr: whiteColor, ontap: (){
                       vehicalEquipmentBottomSheet(context);
                     }, ontapCancel: (){
-                      // Get.offAllNamed("login");
+                      Get.back();
                     });
                   }),
                 ],

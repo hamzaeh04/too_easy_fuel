@@ -184,7 +184,9 @@ class SubscriptionPayment extends StatelessWidget {
                   children: [
                     SizedBox(height: 5.h),
                     buttonWidget("Pay Now", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
-                      invoiceDialog(context,isSubscription: true);
+                      Get.toNamed("AddPayment");
+
+                      // invoiceDialog(context,isSubscription: true);
                     }),
                     SizedBox(height: 2.h),
                     buttonWidget(
