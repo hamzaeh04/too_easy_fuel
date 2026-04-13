@@ -12,6 +12,8 @@ import 'package:too_easy_fuel/features/onboarding/views/onboarding_one.dart';
 import 'package:too_easy_fuel/features/setting/binding/setting_binding.dart';
 import 'package:too_easy_fuel/features/setting/views/setting_screen.dart';
 import 'package:too_easy_fuel/features/splash/binding/splash_binding.dart';
+import 'package:too_easy_fuel/features/subscription/views/choose_your_plan.dart';
+import 'package:too_easy_fuel/features/subscription/views/subscription_payment.dart';
 
 import '../../features/fleet/binding/fleet_binding.dart';
 import '../../features/fleet/views/fleet_screen.dart';
@@ -47,5 +49,7 @@ class AppRoutes {
     GetPage(name: '/fleet', page: () => FleetScreen(),binding: FleetBinding()),
     GetPage(name: '/seeVehicle', page: () => SeeVehicle(),binding: FleetBinding()),
     GetPage(name: '/seeEquipments', page: () => SeeEquipments(),binding: FleetBinding()),
+    GetPage(name: '/choseplan', page: () => ChooseYourPlan()),
+    GetPage(name: '/SubscriptionPayment', page: () => SubscriptionPayment()),
   ];
 }

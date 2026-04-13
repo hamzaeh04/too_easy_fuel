@@ -151,7 +151,12 @@ class SignupScreen extends GetView<AuthController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image.asset("assets/png/social_icons/google.png",width: 9.w,),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed("choseplan");
+                          },
+                            child: Image.asset("assets/png/social_icons/google.png",width: 9.w,)
+                        ),
                         SizedBox(width: 4.w),
                         Image.asset("assets/png/social_icons/apple.png",width: 10.w,),
                       ],

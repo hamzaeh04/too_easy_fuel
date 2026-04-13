@@ -25,6 +25,7 @@ const blueColor = Color(0xFF2B4E76);
 const errorColor = Colors.red;
 const success = Colors.green;
 const purpleColor = Color(0xFFBA2416);
+const Color blueLightColor = Color(0x2B4E761A);
 
 
 
