@@ -36,11 +36,11 @@ class ChangePasswordScreen extends GetView<ProfileController> {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Column(
                   children: [
-                    customTextField("Current Password", "Enter password", "assets/png/auth_image/field-icons-user.png", isPass: true, isObscure: controller.isObscure),
+                    customTextField("Current Password", "Enter password", path: "assets/png/auth_image/field-icons-user.png", isPass: true, isObscure: controller.isObscure),
                     SizedBox(height: 1.25.h,),
-                    customTextField("New Password", "Enter New Password", "assets/png/auth_image/field-icons-email.png", isPass: true, isObscure: controller.isObscure),
+                    customTextField("New Password", "Enter New Password", path: "assets/png/auth_image/field-icons-email.png", isPass: true, isObscure: controller.isObscure),
                     SizedBox(height: 1.25.h,),
-                    customTextField("Confirm Password", "Enter Confirm New Password", "assets/png/track_order/phone.png", isPass: true, isObscure: controller.isObscure),
+                    customTextField("Confirm Password", "Enter Confirm New Password", path: "assets/png/track_order/phone.png", isPass: true, isObscure: controller.isObscure),
                     SizedBox(height: 3.5.h,),
                     buttonWidget("Update", whiteColor, isGradient: true, onTap: (){
                       customDialog(context, containerClr: blueColor, title: "Password has been updated successfully", ontap: (){

@@ -29,9 +29,9 @@ Future<void> customDialog(BuildContext context, {Color? containerClr, String? im
                         padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 1.5.h),
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: containerClr
+                            color: containerClr ?? blueColor
                         ),
-                        child: Image.asset(imgPath ?? "assets/png/check_icon.png", color: imageClr,),
+                        child: Image.asset(imgPath ?? "assets/png/check_icon.png", color: imageClr ?? whiteColor,),
                       ),
                     ),
                     SizedBox(height: 2.h,),

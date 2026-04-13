@@ -6,6 +6,7 @@ import 'package:too_easy_fuel/features/auth/views/forgot_set_password.dart';
 import 'package:too_easy_fuel/features/auth/views/login_screen.dart';
 import 'package:too_easy_fuel/features/auth/views/otp_verification.dart';
 import 'package:too_easy_fuel/features/auth/views/signup_screen.dart';
+import 'package:too_easy_fuel/features/home/binding/home_binding.dart';
 import 'package:too_easy_fuel/features/notification/binding/notification_binding.dart';
 import 'package:too_easy_fuel/features/onboarding/binding/onboarding_binding.dart';
 import 'package:too_easy_fuel/features/onboarding/views/onboarding_one.dart';
@@ -18,6 +19,9 @@ import '../../features/fleet/binding/fleet_binding.dart';
 import '../../features/fleet/views/fleet_screen.dart';
 import '../../features/fleet/views/see_equipments.dart';
 import '../../features/fleet/views/see_vehicle.dart';
+import '../../features/home/views/home_screen.dart';
+import '../../features/navbar/binding/navbar_binding.dart';
+import '../../features/navbar/views/navbar_screen.dart';
 import '../../features/notification/views/notification_screen.dart';
 import '../../features/orders/binding/order_binding.dart';
 import '../../features/orders/views/order_screen.dart';
@@ -56,5 +60,7 @@ class AppRoutes {
     GetPage(name: '/editprofile', page: () => EditProfileScreen(),binding: ProfileBinding()),
     GetPage(name: '/changePassword', page: () => ChangePasswordScreen(),binding: ProfileBinding()),
     GetPage(name: '/notificationSetting', page: () => NotificationSettingScreen(),binding: ProfileBinding()),
+    GetPage(name: '/home', page: () => HomeScreen(),binding: HomeBinding()),
+    GetPage(name: '/navbar', page: () => NavbarScreen(),binding: NavbarBinding()),
   ];
 }

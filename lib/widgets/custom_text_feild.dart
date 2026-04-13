@@ -157,7 +157,7 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
   );
 
 }
-Widget customTextField(String title, String hinttext, String path, {bool? isPass = false, required RxBool isObscure}){
+Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure}){
   return Column(
     children: [
       Row(
@@ -197,18 +197,19 @@ Widget customTextField(String title, String hinttext, String path, {bool? isPass
 
           contentPadding: EdgeInsets.symmetric(
             vertical: 1.5.h,
+            horizontal: 4.w
           ),
 
-          /// 🔹 PREFIX IMAGE + DIVIDER
-          prefixIcon: Row(
+          /// 🔹 PREFIX IMAGE + DIVIDER\
+          prefixIcon: path != null ? Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(width: 4.w),
-              Image.asset(path, width: 6.w, height: 5.w),
+              Image.asset(path ?? "", width: 6.w, height: 5.w),
 
               SizedBox(width: 2.w),
             ],
-          ),
+          ): null,
 
           suffixIconConstraints: BoxConstraints(
             minHeight: 4.3.h,

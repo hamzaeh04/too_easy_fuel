@@ -4,7 +4,7 @@ import 'package:sizer/sizer.dart';
 
 import '../../../constants/color_constants.dart';
 
-Widget elevatedContainer({Widget? child, double? height, double? hPadding, double? vPadding, double? margin, double? radius, Color? containerColor, Color? borderColor}){
+Widget elevatedContainer({Widget? child, double? height, double? hPadding, double? vPadding, double? margin, double? radius, Color? containerColor, Color? borderColor, Gradient? gradient}){
   return Container(
     margin: EdgeInsets.symmetric(horizontal: margin ?? 0.w,),
     height: height,
@@ -12,7 +12,8 @@ Widget elevatedContainer({Widget? child, double? height, double? hPadding, doubl
     decoration: BoxDecoration(
 
       borderRadius: BorderRadius.circular(radius ?? 4.w,),
-      color: containerColor ?? whiteColor,
+      color: gradient == null ? (containerColor ?? whiteColor) : null,
+      gradient: gradient,
       boxShadow: [
         BoxShadow(
           color: borderColor ?? blackColor.withOpacity(0.08), // soft shadow

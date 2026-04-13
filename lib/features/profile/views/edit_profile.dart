@@ -36,13 +36,13 @@ class EditProfileScreen extends GetView<ProfileController> {
                   padding: EdgeInsets.symmetric(horizontal: 5.w),
                   child: Column(
                     children: [
-                      customTextField("Full Name", "John Smith", "assets/png/auth_image/field-icons-user.png", isObscure: controller.isObscure),
+                      customTextField("Full Name", "John Smith", path: "assets/png/auth_image/field-icons-user.png", isObscure: controller.isObscure),
                       SizedBox(height: 1.25.h,),
-                      customTextField("Email", "john.smith@example.com", "assets/png/auth_image/field-icons-email.png", isObscure: controller.isObscure),
+                      customTextField("Email", "john.smith@example.com", path: "assets/png/auth_image/field-icons-email.png", isObscure: controller.isObscure),
                       SizedBox(height: 1.25.h,),
-                      customTextField("Phone Number", "(555) 123-4567", "assets/png/track_order/phone.png", isObscure: controller.isObscure),
+                      customTextField("Phone Number", "(555) 123-4567", path: "assets/png/track_order/phone.png", isObscure: controller.isObscure),
                       SizedBox(height: 1.25.h,),
-                      customTextField("Default Address", "Enter your default address", "assets/png/track_order/location.png", isObscure: controller.isObscure),
+                      customTextField("Default Address", "Enter your default address", path: "assets/png/track_order/location.png", isObscure: controller.isObscure),
                       SizedBox(height: 3.5.h,),
                       buttonWidget("Save Changes", whiteColor, isGradient: true, onTap: (){
                         customDialog(context, containerClr: blueColor, title: "Profile has been updated successfully", ontap: (){
