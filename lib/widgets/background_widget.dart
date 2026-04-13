@@ -4,7 +4,6 @@ import 'package:flutter/widgets.dart';
 import '../constants/color_constants.dart';
 
 
-// Reusable full-screen radial gradient wrapper
 Widget radialBackground({required Widget child}) {
   return Container(
     width: double.infinity,

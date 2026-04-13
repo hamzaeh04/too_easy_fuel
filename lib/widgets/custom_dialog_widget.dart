@@ -31,7 +31,7 @@ Future<void> customDialog(BuildContext context, {Color? containerClr, String? im
                             shape: BoxShape.circle,
                             color: containerClr
                         ),
-                        child: Image.asset(imgPath ?? "", color: imageClr,),
+                        child: Image.asset(imgPath ?? "assets/png/check_icon.png", color: imageClr,),
                       ),
                     ),
                     SizedBox(height: 2.h,),

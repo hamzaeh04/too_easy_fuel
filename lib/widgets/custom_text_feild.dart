@@ -157,3 +157,99 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
   );
 
 }
+Widget customTextField(String title, String hinttext, String path, {bool? isPass = false, required RxBool isObscure}){
+  return Column(
+    children: [
+      Row(
+        children: [
+          customText(
+            text:
+            title,
+            fontSize: 15.sp,
+            textAlign: TextAlign.center,
+          ),
+          customText(
+            text:
+            "*",
+            color: redAppBarColor,
+            fontSize: 15.sp,
+            textAlign: TextAlign.center,
+          ),
+
+        ],
+      ),
+      SizedBox(height: 0.5.h,),
+      TextField(
+        style: TextStyle(
+            color: blackColor,
+            fontFamily: "inter",
+            ),
+        decoration: InputDecoration(
+          filled: true, // 🔥 IMPORTANT
+          fillColor: Colors.white, //
+          isDense: true,
+          hintText: hinttext,
+
+          hintStyle: TextStyle(
+              color: darkGreyColor,
+              fontFamily: "inter",
+              fontSize: 15.sp),
+
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 1.5.h,
+          ),
+
+          /// 🔹 PREFIX IMAGE + DIVIDER
+          prefixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(width: 4.w),
+              Image.asset(path, width: 6.w, height: 5.w),
+
+              SizedBox(width: 2.w),
+            ],
+          ),
+
+          suffixIconConstraints: BoxConstraints(
+            minHeight: 4.3.h,
+            minWidth: 4.3.h,
+          ),
+
+          suffixIcon: isPass == true ? GestureDetector(
+            onTap: () {
+              // isPasswordHidden.toggle();
+            },
+            child: Padding(
+              padding: EdgeInsets.only(
+                right: 4.w, // 🔹 Add padding from right
+
+
+              ),
+              child: Obx(() => Image.asset(
+                (isObscure.value)
+                    ? "assets/png/auth_image/field-icons-close-eye.png"
+                    : "assets/png/auth_image/field-icons-close-eye.png",
+                width: 4.w,
+                height: 4.w,
+              )),
+            ),
+          ): SizedBox.shrink(),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24.sp),
+            borderSide: BorderSide(
+              color: borderGreyColor,
+              width: 0.15.h,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24.sp),
+            borderSide: BorderSide(
+              color: borderGreyColor,
+              width: 0.2.h,
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}

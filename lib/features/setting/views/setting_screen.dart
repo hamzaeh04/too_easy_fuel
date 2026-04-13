@@ -23,19 +23,19 @@ class SettingScreen extends GetView<SettingController> {
             SizedBox(height: 3.h,),
             menu("About Us", imagePath: "assets/png/about.png", color: lightGreenColor, ontap: (){
               Get.toNamed('aboutus');
-            }),
+            }, hMargin: 5.w),
             SizedBox(height: 1.5.h,),
             menu("Help & Support", imagePath: "assets/png/support.png", color: lightYellowColor, ontap: (){
               Get.toNamed('support');
-            }),
+            }, hMargin: 5.w),
             SizedBox(height: 1.5.h,),
             menu("Terms & Conditions", imagePath: "assets/png/about.png",  color: lightGreenColor, ontap: (){
               Get.toNamed('terms');
-            }),
+            }, hMargin: 5.w),
             SizedBox(height: 1.5.h,),
             menu("FAQs", imagePath: "assets/png/faqs.png",  color: lightBlueColor, ontap: (){
               Get.toNamed('faqs');
-            }),
+            }, hMargin: 5.w),
           ],
         ),
       ),

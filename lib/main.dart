@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
             // 1. Keep this for global services
             initialBinding: Binding(),
 
-            // 2. This must match the 'name' in your AppRoutes
+            // 2. This must match the 'name' in your App Routes
             initialRoute: '/',
 
             // 3. REMOVE 'home: SplashScreen()'.
