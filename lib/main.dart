@@ -7,8 +7,10 @@ import 'package:too_easy_fuel/core/routes/App_Routing.dart';
 import 'package:too_easy_fuel/core/bindings/init_binding.dart';
 
 import 'constants/color_constants.dart';
+import 'features/orders/controller/order_controller.dart';
 
 void main() {
+  Get.put(OrderController()); // 👈 add this
   runApp(const MyApp());
 }
 

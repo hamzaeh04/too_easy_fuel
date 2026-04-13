@@ -66,7 +66,7 @@ class ProfileScreen extends GetView<ProfileController> {
                         ),
                         SizedBox(height: 1.75.h,),
                         menu("Edit Profile", color: lightBlueColor, imagePath: "assets/png/faqs.png", vMargin: 0.5.h, ontap: () => Get.toNamed("editprofile")),
-                        menu("Subscription", color: lightYellowColor, imagePath: "assets/png/support.png", vMargin: 0.5.h),
+                        menu("Subscription", color: lightYellowColor, imagePath: "assets/png/support.png", vMargin: 0.5.h, ontap: () => Get.toNamed("choseplan")),
                         menu("Payment Method", color: lightGreenColor, imagePath: "assets/png/about.png", vMargin: 0.5.h),
                         menu("Change Password", color: lightPurpleColor, imagePath: "assets/png/track_order/changePass.png", vMargin: 0.5.h, ontap: ()=> Get.toNamed("changePassword")),
                         menu("Notification Settings", color: lightOrangeColor, imagePath: "assets/png/track_order/notification.png", vMargin: 0.5.h, ontap: ()=> Get.toNamed("notificationSetting")),

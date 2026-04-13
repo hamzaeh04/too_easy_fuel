@@ -251,7 +251,7 @@ class HomeScreen extends GetView<HomeController> {
                           ],
                         ),
                       ),
-                      SizedBox(height: 2.h),
+                      SizedBox(height: 1.5.h),
 
                       // Fleet Management
                       Row(

@@ -61,7 +61,6 @@ Widget appBar(String title, {bool? isBack = true, double? height, double? paddin
 
           InkWell(
             onTap: (){
-              Get.toNamed("order");
             },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 3.w),

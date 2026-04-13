@@ -29,6 +29,7 @@ const errorColor = Colors.red;
 const success = Colors.green;
 const purpleColor = Color(0xFFBA2416);
 const neonGreenColor = Color(0xFF00A63E);
+const Color blueLightColor = Color(0x2B4E761A);
 
 
 

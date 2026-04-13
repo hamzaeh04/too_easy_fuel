@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/features/navbar/controller/navbar_controller.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
@@ -23,40 +24,58 @@ class NavbarScreen extends StatelessWidget {
               )
             ],
           ),
-          child: BottomNavigationBar(
-            currentIndex: controller.selectedIndex.value,
-            onTap: controller.changeIndex,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: whiteColor,
-            selectedItemColor: blueColor,
-            unselectedItemColor: greyColor,
-            selectedLabelStyle: TextStyle(fontFamily: 'inter', fontWeight: FontWeight.w600),
-            unselectedLabelStyle: TextStyle(fontFamily: 'inter'),
-            items: [
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home_outlined),
-                activeIcon: Icon(Icons.home),
-                label: 'Home',
+          child: SafeArea(
+            child: Container(
+              height: 8.h,
+              child: Row(
+                children: [
+                  _buildNavItem(0, "assets/png/navbar/Home.png", "Home", controller),
+                  _buildNavItem(1, "assets/png/navbar/Orders.png", "Orders", controller),
+                  _buildNavItem(2, "assets/png/navbar/My Fleet.png", "My Fleet", controller),
+                  _buildNavItem(3, "assets/png/navbar/Profile.png", "Profile", controller),
+                ],
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.receipt_long_outlined),
-                activeIcon: Icon(Icons.receipt_long),
-                label: 'Orders',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.directions_car_outlined),
-                activeIcon: Icon(Icons.directions_car),
-                label: 'My Fleet',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person_outline),
-                activeIcon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
+            ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildNavItem(int index, String iconPath, String label, NavbarController controller) {
+    bool isSelected = controller.selectedIndex.value == index;
+    return Expanded(
+      child: InkWell(
+        onTap: () => controller.changeIndex(index),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Exact top edge border
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 2.w),
+              margin: EdgeInsets.symmetric(horizontal: 3.w),
+              height: 0.25.h,
+              width: double.infinity,
+              color: isSelected ? blueColor : Colors.transparent,
+            ),
+            Spacer(),
+            Image.asset(
+              iconPath,
+              color: isSelected ? blueColor : greyColor,
+              width: 6.5.w,
+            ),
+            SizedBox(height: 0.5.h),
+            customText(
+              text: label,
+              color: isSelected ? blueColor : greyColor,
+              fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+              fontSize: 14.5.sp,
+              fontFamily: 'inter',
+            ),
+            Spacer(),
+          ],
+        ),
+      )
     );
   }
 }

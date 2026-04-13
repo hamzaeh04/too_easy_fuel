@@ -35,6 +35,8 @@ import '../../features/setting/views/faqs_screen.dart';
 import '../../features/setting/views/support_screen.dart';
 import '../../features/setting/views/terms_screen.dart';
 import '../../features/splash/views/splash_screen.dart';
+import '../../features/subscription/views/choose_your_plan.dart';
+import '../../features/subscription/views/subscription_payment.dart';
 class AppRoutes {
   static List<GetPage<dynamic>> routes = [
     GetPage(name: '/', page: () => SplashScreen(),binding: SplashBinding()),
@@ -62,5 +64,7 @@ class AppRoutes {
     GetPage(name: '/notificationSetting', page: () => NotificationSettingScreen(),binding: ProfileBinding()),
     GetPage(name: '/home', page: () => HomeScreen(),binding: HomeBinding()),
     GetPage(name: '/navbar', page: () => NavbarScreen(),binding: NavbarBinding()),
+    GetPage(name: '/choseplan', page: () => ChooseYourPlan()),
+    GetPage(name: '/SubscriptionPayment', page: () => SubscriptionPayment()),
   ];
 }

@@ -33,7 +33,7 @@ Widget customText({
       decoration: txtDecoration,
       decorationColor: decorationColor,
       decorationThickness: 1.0,
-      letterSpacing: letterSpacing,
+      letterSpacing: letterSpacing ?? - 0.5,
       height: height,
     ),
   );

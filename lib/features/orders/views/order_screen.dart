@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:too_easy_fuel/features/fleet/widget/fuel_1_bottomsheet.dart';
 import 'package:too_easy_fuel/features/orders/controller/order_controller.dart';
 import 'package:too_easy_fuel/features/orders/widget/order_detail_widget.dart';
 import 'package:too_easy_fuel/features/setting/widgets/elevated_container.dart';
@@ -113,7 +114,7 @@ class OrderScreen extends GetView<OrderController> {
                         SizedBox(width: 2.w,),
                         InkWell(
                           onTap: (){
-                            Get.toNamed("fleet");
+                            fuelBottomSheet1(context);
                           },
                           child: Container(
                             height: 6.h,

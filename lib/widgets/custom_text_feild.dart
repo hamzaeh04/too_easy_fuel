@@ -157,7 +157,7 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
   );
 
 }
-Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure}){
+Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure, Icon? suffix, VoidCallback? onSuffixTap}){
   return Column(
     children: [
       Row(
@@ -216,25 +216,32 @@ Widget customTextField(String title, String hinttext, {String? path, bool? isPas
             minWidth: 4.3.h,
           ),
 
-          suffixIcon: isPass == true ? GestureDetector(
+
+          suffixIcon: suffix != null
+              ? InkWell(
+            onTap: onSuffixTap,
+                child: Padding(
+                            padding: EdgeInsets.only(right: 4.w),
+                            child: suffix, // 👈 your custom icon
+                          ),
+              )
+              : isPass == true
+              ? GestureDetector(
             onTap: () {
-              // isPasswordHidden.toggle();
+              isObscure.toggle(); // 👈 toggle
             },
             child: Padding(
-              padding: EdgeInsets.only(
-                right: 4.w, // 🔹 Add padding from right
-
-
-              ),
+              padding: EdgeInsets.only(right: 4.w),
               child: Obx(() => Image.asset(
-                (isObscure.value)
+                isObscure.value
                     ? "assets/png/auth_image/field-icons-close-eye.png"
-                    : "assets/png/auth_image/field-icons-close-eye.png",
+                    : "assets/png/auth_image/field-icons-open-eye.png",
                 width: 4.w,
                 height: 4.w,
               )),
             ),
-          ): SizedBox.shrink(),
+          )
+              : null,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24.sp),
             borderSide: BorderSide(
