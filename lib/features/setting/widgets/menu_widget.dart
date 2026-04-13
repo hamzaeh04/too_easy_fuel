@@ -13,12 +13,14 @@ Widget menu(
       Color? color,
       bool? isIcon = false,
       IconData? icon,
+      double? hMargin,
+      double? vMargin
     }) {
   return InkWell(
     onTap: ontap,
     borderRadius: BorderRadius.circular(4.w),
     child: Container(
-      margin: EdgeInsets.symmetric(horizontal: 5.w),
+      margin: EdgeInsets.symmetric(horizontal: hMargin ?? 0.w, vertical: vMargin ?? 0.h),
       height: 9.h,
       width: double.infinity,
       decoration: BoxDecoration(

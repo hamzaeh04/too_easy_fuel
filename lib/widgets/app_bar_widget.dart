@@ -5,9 +5,9 @@ import 'package:sizer/sizer.dart';
 import '../constants/color_constants.dart';
 import 'customText_widget.dart';
 
-Widget appBar(String title, {bool? isBack = true}){
+Widget appBar(String title, {bool? isBack = true, double? height, double? padding}){
   return Container(
-    height: 15.h,
+    height: height ?? 15.h,
     width: double.infinity,
     decoration: BoxDecoration(
       borderRadius: BorderRadius.only(
@@ -25,7 +25,7 @@ Widget appBar(String title, {bool? isBack = true}){
       ),
     ),
     child: Padding(
-      padding: EdgeInsets.only(top: 4.h, left: 5.w, right: 5.w),
+      padding: EdgeInsets.only(top: 4.h, left: 5.w, right: 5.w, bottom: padding ?? 0),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

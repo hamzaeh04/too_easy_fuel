@@ -9,6 +9,7 @@ import 'package:too_easy_fuel/features/auth/views/signup_screen.dart';
 import 'package:too_easy_fuel/features/notification/binding/notification_binding.dart';
 import 'package:too_easy_fuel/features/onboarding/binding/onboarding_binding.dart';
 import 'package:too_easy_fuel/features/onboarding/views/onboarding_one.dart';
+import 'package:too_easy_fuel/features/profile/binding/profile_binding.dart';
 import 'package:too_easy_fuel/features/setting/binding/setting_binding.dart';
 import 'package:too_easy_fuel/features/setting/views/setting_screen.dart';
 import 'package:too_easy_fuel/features/splash/binding/splash_binding.dart';
@@ -21,6 +22,10 @@ import '../../features/notification/views/notification_screen.dart';
 import '../../features/orders/binding/order_binding.dart';
 import '../../features/orders/views/order_screen.dart';
 import '../../features/orders/views/track_order_screen.dart';
+import '../../features/profile/views/change_password.dart';
+import '../../features/profile/views/edit_profile.dart';
+import '../../features/profile/views/notification_setting.dart';
+import '../../features/profile/views/profile_screen.dart';
 import '../../features/setting/views/aboutus_screen.dart';
 import '../../features/setting/views/faqs_screen.dart';
 import '../../features/setting/views/support_screen.dart';
@@ -47,5 +52,9 @@ class AppRoutes {
     GetPage(name: '/fleet', page: () => FleetScreen(),binding: FleetBinding()),
     GetPage(name: '/seeVehicle', page: () => SeeVehicle(),binding: FleetBinding()),
     GetPage(name: '/seeEquipments', page: () => SeeEquipments(),binding: FleetBinding()),
+    GetPage(name: '/profile', page: () => ProfileScreen(),binding: ProfileBinding()),
+    GetPage(name: '/editprofile', page: () => EditProfileScreen(),binding: ProfileBinding()),
+    GetPage(name: '/changePassword', page: () => ChangePasswordScreen(),binding: ProfileBinding()),
+    GetPage(name: '/notificationSetting', page: () => NotificationSettingScreen(),binding: ProfileBinding()),
   ];
 }
