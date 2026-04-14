@@ -6,7 +6,7 @@ import 'package:too_easy_fuel/features/auth/controller/auth_controller.dart';
 import '../constants/color_constants.dart';
 import 'customText_widget.dart';
 
-Widget emailTextFeild(String title,String hinttext,String path,AuthController auth,{bool? ispassword,RxBool? isPasswordHidden}){
+Widget emailTextFeild(String title,String hinttext,String path,AuthController auth,{bool? ispassword,RxBool? isPasswordHidden,VoidCallback? onSuffixTap,Widget? suffixIcon,bool? showSuffix,bool? isPaymentScreen = false}){
   return Column(
     children: [
       Row(
@@ -17,13 +17,13 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
             fontSize: 15.sp,
             textAlign: TextAlign.center,
           ),
-          customText(
+          isPaymentScreen == true ? customText(
             text:
             "*",
             color: redAppBarColor,
             fontSize: 15.sp,
             textAlign: TextAlign.center,
-          ),
+          ):SizedBox.shrink(),
 
         ],
       ),
@@ -81,7 +81,7 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
                       child: Obx(() => Image.asset(
                         isPasswordHidden.value
                             ? "assets/png/auth_image/field-icons-close-eye.png"
-                            : "assets/png/auth_image/field-icons-close-eye.png",
+                            : "assets/png/auth_image/open-eye.png",
                         width: 4.w,
                         height: 4.w,
                       )),
@@ -106,52 +106,69 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
               );
             })
           : TextField(
-              decoration: InputDecoration(
-                filled: true, // 🔥 IMPORTANT
-                fillColor: Colors.white, //
-                isDense: true,
-                hintText: hinttext,
-                hintStyle: TextStyle(
-                    color: borderGreyColor,
-                    fontFamily: "inter",
-                    fontSize: 14.5.sp),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          isDense: true,
+          hintText: hinttext,
+          hintStyle: TextStyle(
+            color: borderGreyColor,
+            fontFamily: "inter",
+            fontSize: 14.5.sp,
+          ),
 
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 1.5.h,
-                ),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: 1.5.h,
+          ),
 
-                /// 🔹 PREFIX IMAGE + DIVIDER
-                prefixIcon: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    SizedBox(width: 3.w),
-                    Image.asset(path, width: 6.w, height: 6.w),
-                    SizedBox(width: 3.w),
-                    Container(
-                      height: 2.5.h,
-                      width: 1,
-                      color: borderGreyColor,
-                    ),
-                    SizedBox(width: 2.w),
-                  ],
-                ),
-
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24.sp),
-                  borderSide: BorderSide(
-                    color: borderGreyColor,
-                    width: 0.15.h,
-                  ),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24.sp),
-                  borderSide: BorderSide(
-                    color: borderGreyColor,
-                    width: 0.2.h,
-                  ),
-                ),
+          /// 🔹 PREFIX
+          prefixIcon: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(width: 3.w),
+              Image.asset(path, width: 6.w, height: 6.w),
+              SizedBox(width: 3.w),
+              Container(
+                height: 2.5.h,
+                width: 1,
+                color: borderGreyColor,
               ),
-            )
+              SizedBox(width: 2.w),
+            ],
+          ),
+
+          /// 🔹 SUFFIX (OPTIONAL)
+          suffixIcon: showSuffix == true
+              ? GestureDetector(
+            onTap: onSuffixTap,
+            child: Padding(
+              padding: EdgeInsets.only(right: 3.w),
+              child: suffixIcon ??
+                  Icon(
+                    Icons.visibility,
+                    color: borderGreyColor,
+                    size: 5.w,
+                  ),
+            ),
+          )
+              : null,
+
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24.sp),
+            borderSide: BorderSide(
+              color: borderGreyColor,
+              width: 0.15.h,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24.sp),
+            borderSide: BorderSide(
+              color: borderGreyColor,
+              width: 0.2.h,
+            ),
+          ),
+        ),
+      )
 
     ],
   );
@@ -181,9 +198,9 @@ Widget customTextField(String title, String hinttext, {String? path, bool? isPas
       SizedBox(height: 0.5.h,),
       TextField(
         style: TextStyle(
-            color: blackColor,
-            fontFamily: "inter",
-            ),
+          color: blackColor,
+          fontFamily: "inter",
+        ),
         decoration: InputDecoration(
           filled: true, // 🔥 IMPORTANT
           fillColor: Colors.white, //
@@ -196,8 +213,8 @@ Widget customTextField(String title, String hinttext, {String? path, bool? isPas
               fontSize: 15.sp),
 
           contentPadding: EdgeInsets.symmetric(
-            vertical: 1.5.h,
-            horizontal: 4.w
+              vertical: 1.5.h,
+              horizontal: 4.w
           ),
 
           /// 🔹 PREFIX IMAGE + DIVIDER\
@@ -220,11 +237,11 @@ Widget customTextField(String title, String hinttext, {String? path, bool? isPas
           suffixIcon: suffix != null
               ? InkWell(
             onTap: onSuffixTap,
-                child: Padding(
-                            padding: EdgeInsets.only(right: 4.w),
-                            child: suffix, // 👈 your custom icon
-                          ),
-              )
+            child: Padding(
+              padding: EdgeInsets.only(right: 4.w),
+              child: suffix, // 👈 your custom icon
+            ),
+          )
               : isPass == true
               ? GestureDetector(
             onTap: () {
@@ -235,7 +252,7 @@ Widget customTextField(String title, String hinttext, {String? path, bool? isPas
               child: Obx(() => Image.asset(
                 isObscure.value
                     ? "assets/png/auth_image/field-icons-close-eye.png"
-                    : "assets/png/auth_image/field-icons-open-eye.png",
+                    : "assets/png/auth_image/open-eye.png",
                 width: 4.w,
                 height: 4.w,
               )),

@@ -42,7 +42,9 @@ Future<void> customDialog(BuildContext context, {Color? containerClr, String? im
                         overFlow: TextOverflow.visible
                     ),
                     SizedBox(height: 2.h,),
-                    buttonWidget(btnText ?? "Ok", btnTextClr ?? whiteColor, isGradient: true, onTap: ontap,fontsize: 15.sp)
+                    buttonWidget(btnText ?? "Ok", btnTextClr ?? whiteColor, isGradient: true, onTap: ontap ?? (){
+                      Get.back();
+                    },fontsize: 15.sp)
                   ],
                 ),
               ),

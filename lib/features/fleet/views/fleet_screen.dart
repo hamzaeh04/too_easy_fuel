@@ -40,7 +40,6 @@ class FleetScreen extends GetView<FleetController> {
                           })),
                       SizedBox(width: 2.w,),
                       Expanded(child: buttonWidget("+ Add Vehicle", whiteColor, isGradient: true, onTap: (){
-                        Get.toNamed("profile");
                       })),
                     ],
                   ),

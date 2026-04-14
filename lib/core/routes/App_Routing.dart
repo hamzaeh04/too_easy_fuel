@@ -36,7 +36,9 @@ import '../../features/setting/views/faqs_screen.dart';
 import '../../features/setting/views/support_screen.dart';
 import '../../features/setting/views/terms_screen.dart';
 import '../../features/splash/views/splash_screen.dart';
+import '../../features/subscription/views/add_payment_screen.dart';
 import '../../features/subscription/views/choose_your_plan.dart';
+import '../../features/subscription/views/payment_method_screen.dart';
 import '../../features/subscription/views/subscription_payment.dart';
 class AppRoutes {
   static List<GetPage<dynamic>> routes = [
@@ -68,5 +70,7 @@ class AppRoutes {
     GetPage(name: '/choseplan', page: () => ChooseYourPlan()),
     GetPage(name: '/SubscriptionPayment', page: () => SubscriptionPayment()),
     GetPage(name: '/SubscriptionPlan', page: () => SubscriptionPlan()),
+    GetPage(name: '/AddPayment', page: () => AddPaymentScreen()),
+    GetPage(name: '/PaymentMethod', page: () => PaymentMethodScreen()),
   ];
 }
