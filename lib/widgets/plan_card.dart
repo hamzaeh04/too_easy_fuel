@@ -5,7 +5,7 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 import '../constants/color_constants.dart';
 import 'customText_widget.dart';
 
-Widget planWidget(String plantype,double price,String timeline,String duration,{VoidCallback? onTap}){
+Widget planWidget(String plantype,double price,String timeline,String duration,{VoidCallback? onTap, bool? isActive = false, bool? isPlan = false, Widget? child}){
   return Padding(
     padding: EdgeInsets.symmetric(horizontal: 5.w),
     child: InkWell(
@@ -71,15 +71,24 @@ Widget planWidget(String plantype,double price,String timeline,String duration,{
                 ],
               ),
               SizedBox(height: 3.h),
-              planWidgetRow("Free delivery"),
-              planWidgetRow("Set schedule"),
-              planWidgetRow("Cancel anytime"),
-              planWidgetRow("Email support"),
+              child ?? Column(
+                children: [
+                  planWidgetRow("Free delivery"),
+                  planWidgetRow("Set schedule"),
+                  planWidgetRow("Cancel anytime"),
+                  planWidgetRow("Email support"),],
+              ),
               SizedBox(height: 2.h),
+              isActive == false ?
               buttonWidget(
-                "Select Plan",
+                isPlan == true ? "Downgrade":"Select Plan",
                 blueAppBarColor,
                 borderColor: blueAppBarColor,
+                fontsize: 15.5.sp,
+              ): buttonWidget(
+                "Current Plan",
+                whiteColor,
+                colors: blueColor,
                 fontsize: 15.5.sp,
               ),
             ],
@@ -94,17 +103,22 @@ Widget planWidgetRow(String title){
     children: [
       Row(
         children: [
-          Image.asset("assets/png/subscription_image/tick_circle.png",width: 6.w,),
-          SizedBox(width: 2.w),
-          customText(
-            text:
-            title,
-            fontSize: 15.sp,
-            textAlign: TextAlign.center,
+          Image.asset(
+            "assets/png/subscription_image/tick_circle.png",
+            width: 6.w,
           ),
 
-        ],
+          SizedBox(width: 2.w),
 
+          Expanded(
+            child: customText(
+              text: title,
+              fontSize: 15.sp,
+              textAlign: TextAlign.start,
+              overFlow: TextOverflow.ellipsis
+            ),
+          ),
+        ],
       ),
       SizedBox(height: 0.2.h),
       Divider(

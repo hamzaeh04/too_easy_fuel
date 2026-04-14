@@ -86,9 +86,9 @@ class OtpVerification extends GetView<AuthController> {
                  else{
                     // Get.toNamed("login");
                     customDialog(context, containerClr: blueAppBarColor, title: "Your email has been verified successfully. You can now continue to the app.", btnText: "Ok", imgPath: "assets/png/check_icon.png", imageClr: whiteColor, btnTextClr: whiteColor, ontap: (){
-                      Get.offAllNamed("login");
+                      Get.offAllNamed("choseplan");
                     }, ontapCancel: (){
-                      Get.offAllNamed("login");
+                      Get.offAllNamed("choseplan");
                     });
                   }
                 }),

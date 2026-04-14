@@ -14,6 +14,7 @@ import 'package:too_easy_fuel/features/profile/binding/profile_binding.dart';
 import 'package:too_easy_fuel/features/setting/binding/setting_binding.dart';
 import 'package:too_easy_fuel/features/setting/views/setting_screen.dart';
 import 'package:too_easy_fuel/features/splash/binding/splash_binding.dart';
+import 'package:too_easy_fuel/features/subscription/views/subscription_plan.dart';
 
 import '../../features/fleet/binding/fleet_binding.dart';
 import '../../features/fleet/views/fleet_screen.dart';
@@ -66,5 +67,6 @@ class AppRoutes {
     GetPage(name: '/navbar', page: () => NavbarScreen(),binding: NavbarBinding()),
     GetPage(name: '/choseplan', page: () => ChooseYourPlan()),
     GetPage(name: '/SubscriptionPayment', page: () => SubscriptionPayment()),
+    GetPage(name: '/SubscriptionPlan', page: () => SubscriptionPlan()),
   ];
 }

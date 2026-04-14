@@ -102,7 +102,7 @@ void vehicalEquipmentBottomSheet(BuildContext context) {
                         borderColor: blueAppBarColor,
                         fontsize: 15.5.sp,
                         onTap: (){
-                          vehicalEquipmentBottomSheetTwo(context);
+                          Get.toNamed("navbar");
                         }
                       ),
                     ],
