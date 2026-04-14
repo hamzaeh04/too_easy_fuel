@@ -6,7 +6,7 @@ import 'package:too_easy_fuel/features/auth/controller/auth_controller.dart';
 import '../constants/color_constants.dart';
 import 'customText_widget.dart';
 
-Widget emailTextFeild(String title,String hinttext,String path,AuthController auth,{bool? ispassword,RxBool? isPasswordHidden,bool? isPaymentScreen = false,bool? showSuffix,Widget? suffixIcon,VoidCallback? onSuffixTap}){
+Widget emailTextFeild(String title,String hinttext,String path,AuthController auth,{bool? ispassword,RxBool? isPasswordHidden,VoidCallback? onSuffixTap,Widget? suffixIcon,bool? showSuffix,bool? isPaymentScreen = false}){
   return Column(
     children: [
       Row(
@@ -17,13 +17,13 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
             fontSize: 15.sp,
             textAlign: TextAlign.center,
           ),
-          isPaymentScreen == false ? customText(
+          isPaymentScreen == true ? customText(
             text:
             "*",
             color: redAppBarColor,
             fontSize: 15.sp,
             textAlign: TextAlign.center,
-          ): SizedBox.shrink(),
+          ):SizedBox.shrink(),
 
         ],
       ),
@@ -81,7 +81,7 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
                       child: Obx(() => Image.asset(
                         isPasswordHidden.value
                             ? "assets/png/auth_image/field-icons-close-eye.png"
-                            : "assets/png/auth_image/field-icons-close-eye.png",
+                            : "assets/png/auth_image/open-eye.png",
                         width: 4.w,
                         height: 4.w,
                       )),
@@ -145,9 +145,9 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
               padding: EdgeInsets.only(right: 3.w),
               child: suffixIcon ??
                   Icon(
-                    Icons.keyboard_arrow_down,
+                    Icons.visibility,
                     color: borderGreyColor,
-                    size: 6.w,
+                    size: 5.w,
                   ),
             ),
           )
@@ -174,7 +174,7 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
   );
 
 }
-Widget customTextField(String title, String hinttext, String path, {bool? isPass = false, required RxBool isObscure,bool? isPaymentScreen = false}){
+Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure, Icon? suffix, VoidCallback? onSuffixTap}){
   return Column(
     children: [
       Row(
@@ -185,22 +185,22 @@ Widget customTextField(String title, String hinttext, String path, {bool? isPass
             fontSize: 15.sp,
             textAlign: TextAlign.center,
           ),
-          isPaymentScreen == false ? customText(
+          customText(
             text:
             "*",
             color: redAppBarColor,
             fontSize: 15.sp,
             textAlign: TextAlign.center,
-          ): SizedBox.shrink(),
+          ),
 
         ],
       ),
       SizedBox(height: 0.5.h,),
       TextField(
         style: TextStyle(
-            color: blackColor,
-            fontFamily: "inter",
-            ),
+          color: blackColor,
+          fontFamily: "inter",
+        ),
         decoration: InputDecoration(
           filled: true, // 🔥 IMPORTANT
           fillColor: Colors.white, //
@@ -213,44 +213,52 @@ Widget customTextField(String title, String hinttext, String path, {bool? isPass
               fontSize: 15.sp),
 
           contentPadding: EdgeInsets.symmetric(
-            vertical: 1.5.h,
+              vertical: 1.5.h,
+              horizontal: 4.w
           ),
 
-          /// 🔹 PREFIX IMAGE + DIVIDER
-          prefixIcon: Row(
+          /// 🔹 PREFIX IMAGE + DIVIDER\
+          prefixIcon: path != null ? Row(
             mainAxisSize: MainAxisSize.min,
             children: [
               SizedBox(width: 4.w),
-              Image.asset(path, width: 6.w, height: 5.w),
+              Image.asset(path ?? "", width: 6.w, height: 5.w),
 
               SizedBox(width: 2.w),
             ],
-          ),
+          ): null,
 
           suffixIconConstraints: BoxConstraints(
             minHeight: 4.3.h,
             minWidth: 4.3.h,
           ),
 
-          suffixIcon: isPass == true ? GestureDetector(
+
+          suffixIcon: suffix != null
+              ? InkWell(
+            onTap: onSuffixTap,
+            child: Padding(
+              padding: EdgeInsets.only(right: 4.w),
+              child: suffix, // 👈 your custom icon
+            ),
+          )
+              : isPass == true
+              ? GestureDetector(
             onTap: () {
-              // isPasswordHidden.toggle();
+              isObscure.toggle(); // 👈 toggle
             },
             child: Padding(
-              padding: EdgeInsets.only(
-                right: 4.w, // 🔹 Add padding from right
-
-
-              ),
+              padding: EdgeInsets.only(right: 4.w),
               child: Obx(() => Image.asset(
-                (isObscure.value)
+                isObscure.value
                     ? "assets/png/auth_image/field-icons-close-eye.png"
-                    : "assets/png/auth_image/field-icons-close-eye.png",
+                    : "assets/png/auth_image/open-eye.png",
                 width: 4.w,
                 height: 4.w,
               )),
             ),
-          ): SizedBox.shrink(),
+          )
+              : null,
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(24.sp),
             borderSide: BorderSide(

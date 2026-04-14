@@ -14,12 +14,12 @@ Widget notificationSwitch({String? title, String? msg, required RxBool isOn}) {
             customText(
               text: title,
               fontWeight: FontWeight.w700,
-              fontSize: 17.sp,
+              fontSize: 16.sp,
               color: blueColor,
               letterSpacing: -0.4,
             ),
             SizedBox(height: 0.25.h,),
-            customText(text: msg, fontSize: 15.sp, letterSpacing: -0.4, maxLines: 2, overFlow: TextOverflow.visible),
+            customText(text: msg, fontSize: 14.5.sp, letterSpacing: -0.4, maxLines: 2, overFlow: TextOverflow.visible),
           ],
         ),
       ),
@@ -28,8 +28,8 @@ Widget notificationSwitch({String? title, String? msg, required RxBool isOn}) {
         child: Obx(
           () => AnimatedContainer(
             duration: Duration(milliseconds: 200),
-            width: 11.w, // 🔥 wider
-            height: 2.7.h, // 🔥 same height
+            width: 10.w, // 🔥 wider
+            height: 2.5.h, // 🔥 same height
             padding: EdgeInsets.all(3),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),

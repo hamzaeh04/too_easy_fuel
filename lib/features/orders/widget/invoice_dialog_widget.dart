@@ -9,7 +9,7 @@ import '../../../widgets/customText_widget.dart';
 import '../../../widgets/custom_dialog_widget.dart';
 import '../../subscription/widgets/add_vehical_equipment_modelsheet.dart';
 
-Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscription}) {
+Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscription, bool? isButton = true}) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -453,14 +453,15 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                       ),
                     ],
                   ),
-                  SizedBox(height: 2.h),
+                  SizedBox(height: isButton == true ? 2.h: 0.h),
+                  isButton == true ?
                   buttonWidget("Ok", whiteColor,isGradient: true,height: 5.h,fontsize: 15.5.sp,onTap: (){
                     customDialog(context, containerClr: blueAppBarColor, title: "Payment Successfully Made!", btnText: "Ok", imgPath: "assets/png/check_icon.png", imageClr: whiteColor, btnTextClr: whiteColor, ontap: (){
                       vehicalEquipmentBottomSheet(context);
                     }, ontapCancel: (){
                       Get.back();
                     });
-                  }),
+                  }): SizedBox.shrink(),
                 ],
               ),
             ),

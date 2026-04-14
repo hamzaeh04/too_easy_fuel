@@ -74,7 +74,10 @@ flutter:
     - assets/png/fleet/
     - assets/png/auth_image/
     - assets/png/social_icons/
+    - assets/png/home/
     - assets/png/subscription_image/
+    - assets/png/navbar/
+
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

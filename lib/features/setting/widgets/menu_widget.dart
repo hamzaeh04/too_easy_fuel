@@ -62,9 +62,9 @@ Widget menu(
             Expanded(
               child: customText(
                 text: title,
-                fontSize: fontSize ?? 16.5.sp,
+                fontSize: fontSize ?? 15.5.sp,
                 overFlow: TextOverflow.ellipsis,
-                letterSpacing: -0.5,
+                letterSpacing: -0.25,
               ),
             ),
 

@@ -6,26 +6,26 @@ import 'package:too_easy_fuel/features/auth/views/forgot_set_password.dart';
 import 'package:too_easy_fuel/features/auth/views/login_screen.dart';
 import 'package:too_easy_fuel/features/auth/views/otp_verification.dart';
 import 'package:too_easy_fuel/features/auth/views/signup_screen.dart';
+import 'package:too_easy_fuel/features/home/binding/home_binding.dart';
 import 'package:too_easy_fuel/features/notification/binding/notification_binding.dart';
 import 'package:too_easy_fuel/features/onboarding/binding/onboarding_binding.dart';
 import 'package:too_easy_fuel/features/onboarding/views/onboarding_one.dart';
+import 'package:too_easy_fuel/features/profile/binding/profile_binding.dart';
 import 'package:too_easy_fuel/features/setting/binding/setting_binding.dart';
 import 'package:too_easy_fuel/features/setting/views/setting_screen.dart';
 import 'package:too_easy_fuel/features/splash/binding/splash_binding.dart';
-import 'package:too_easy_fuel/features/subscription/views/add_payment_screen.dart';
-import 'package:too_easy_fuel/features/subscription/views/choose_your_plan.dart';
-import 'package:too_easy_fuel/features/subscription/views/payment_method_screen.dart';
-import 'package:too_easy_fuel/features/subscription/views/subscription_payment.dart';
 
 import '../../features/fleet/binding/fleet_binding.dart';
 import '../../features/fleet/views/fleet_screen.dart';
 import '../../features/fleet/views/see_equipments.dart';
 import '../../features/fleet/views/see_vehicle.dart';
+import '../../features/home/views/home_screen.dart';
+import '../../features/navbar/binding/navbar_binding.dart';
+import '../../features/navbar/views/navbar_screen.dart';
 import '../../features/notification/views/notification_screen.dart';
 import '../../features/orders/binding/order_binding.dart';
 import '../../features/orders/views/order_screen.dart';
 import '../../features/orders/views/track_order_screen.dart';
-import '../../features/profile/binding/profile_binding.dart';
 import '../../features/profile/views/change_password.dart';
 import '../../features/profile/views/edit_profile.dart';
 import '../../features/profile/views/notification_setting.dart';
@@ -35,6 +35,10 @@ import '../../features/setting/views/faqs_screen.dart';
 import '../../features/setting/views/support_screen.dart';
 import '../../features/setting/views/terms_screen.dart';
 import '../../features/splash/views/splash_screen.dart';
+import '../../features/subscription/views/add_payment_screen.dart';
+import '../../features/subscription/views/choose_your_plan.dart';
+import '../../features/subscription/views/payment_method_screen.dart';
+import '../../features/subscription/views/subscription_payment.dart';
 class AppRoutes {
   static List<GetPage<dynamic>> routes = [
     GetPage(name: '/', page: () => SplashScreen(),binding: SplashBinding()),
@@ -56,15 +60,15 @@ class AppRoutes {
     GetPage(name: '/fleet', page: () => FleetScreen(),binding: FleetBinding()),
     GetPage(name: '/seeVehicle', page: () => SeeVehicle(),binding: FleetBinding()),
     GetPage(name: '/seeEquipments', page: () => SeeEquipments(),binding: FleetBinding()),
-    GetPage(name: '/choseplan', page: () => ChooseYourPlan()),
-    GetPage(name: '/SubscriptionPayment', page: () => SubscriptionPayment()),
-    GetPage(name: '/AddPayment', page: () => AddPaymentScreen()),
-    GetPage(name: '/PaymentMethod', page: () => PaymentMethodScreen()),
     GetPage(name: '/profile', page: () => ProfileScreen(),binding: ProfileBinding()),
     GetPage(name: '/editprofile', page: () => EditProfileScreen(),binding: ProfileBinding()),
     GetPage(name: '/changePassword', page: () => ChangePasswordScreen(),binding: ProfileBinding()),
     GetPage(name: '/notificationSetting', page: () => NotificationSettingScreen(),binding: ProfileBinding()),
-    GetPage(name: '/notificationSetting', page: () => NotificationSettingScreen(),binding: ProfileBinding()),
-
+    GetPage(name: '/home', page: () => HomeScreen(),binding: HomeBinding()),
+    GetPage(name: '/navbar', page: () => NavbarScreen(),binding: NavbarBinding()),
+    GetPage(name: '/choseplan', page: () => ChooseYourPlan()),
+    GetPage(name: '/SubscriptionPayment', page: () => SubscriptionPayment()),
+    GetPage(name: '/AddPayment', page: () => AddPaymentScreen()),
+    GetPage(name: '/PaymentMethod', page: () => PaymentMethodScreen()),
   ];
 }
