@@ -169,11 +169,14 @@ void fuel_3_bottomsheet(BuildContext context) {
                         ),
                         SizedBox(height: 3.h),
                         buttonWidget("Pay Now", whiteColor, isGradient: true, onTap: (){
-                          invoiceDialog(context, isButton: false);
+                          invoiceDialog(context, isButton: false, onCancelTap: (){
+                            Get.until((route) => route.isFirst);
+                          });
                         }),
                         SizedBox(height: 1.h),
                         buttonWidget("Cancel", blueColor, borderColor: blueColor, onTap: (){
-                          Get.back();
+                          Get.until((route) => route.isFirst);
+                          print("fff");
                         }),
                         SizedBox(height: 4.h),
 

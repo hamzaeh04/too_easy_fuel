@@ -141,7 +141,7 @@ class OrderScreen extends GetView<OrderController> {
                       } else{
                         return Column(
                           children: [
-                            orderDetailWidget(context, date: "Mon, 8 Dec"),
+                            orderDetailWidget(context, date: "Mon, 8 Dec", isHistory: true),
                           ],
                         );
                       }

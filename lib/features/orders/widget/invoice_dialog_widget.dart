@@ -9,7 +9,7 @@ import '../../../widgets/customText_widget.dart';
 import '../../../widgets/custom_dialog_widget.dart';
 import '../../subscription/widgets/add_vehical_equipment_modelsheet.dart';
 
-Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscription, bool? isButton = true}) {
+Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscription = false, bool? isButton = false, VoidCallback? onCancelTap, bool? isOrderDetail = false}) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -26,7 +26,7 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                 mainAxisSize: MainAxisSize.min, // 👈 IMPORTANT
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  customText(
+                  isOrderDetail == true ? SizedBox.shrink(): customText(
                       text: "Invoice",
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w600,
@@ -35,8 +35,8 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                       color: blueColor,
                     height: 1
                   ),
-                  Divider(),
-                  SizedBox(height: 1.h,),
+                  isOrderDetail == true ? SizedBox.shrink(): Divider(),
+                  isOrderDetail == true ? SizedBox.shrink(): SizedBox(height: 1.h,),
                   customText(
                       text: isSubscription == true ?  "Subscription Detail":"Order Detail",
                       fontSize: 17.5.sp,
@@ -113,7 +113,7 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                       Row(
                         children: [
                           customText(
-                              text: "Subscription",
+                              text: "Order #",
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w400,
                               letterSpacing: -0.2
@@ -121,25 +121,6 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                           Spacer(),
                           customText(
                               text: "12345",
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: -0.2
-                          ),
-                        ],
-                      ),
-                      Divider(),
-                      SizedBox(height: 0.5.h,),
-                      Row(
-                        children: [
-                          customText(
-                              text: "Date",
-                              fontSize: 15.sp,
-                              fontWeight: FontWeight.w400,
-                              letterSpacing: -0.2
-                          ),
-                          Spacer(),
-                          customText(
-                              text: "10.5 Gallons",
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w400,
                               letterSpacing: -0.2
@@ -167,21 +148,151 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                       ),
                       Divider(),
                       SizedBox(height: 0.5.h,),
+                      isOrderDetail == false ?
                       Row(
                         children: [
                           customText(
-                              text: "Toyota:",
+                              text: "Vehicle Or Equipment:",
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w400,
                               letterSpacing: -0.2
                           ),
                           Spacer(),
                           customText(
-                              text: "RAV4",
+                              text: "Toyota RAV4",
                               fontSize: 15.sp,
                               fontWeight: FontWeight.w400,
                               letterSpacing: -0.2
                           ),
+                        ],
+                      ): Column(
+                        children: [
+                          Row(
+                            children: [
+                              customText(
+                                  text: "1- ",
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.2
+                              ),
+                              customText(
+                                  text: "Vehicle Or Equipment:",
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.2
+                              ),
+                              Spacer(),
+                              customText(
+                                  text: "Toyota RAV4",
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.2
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 1.h,),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 10.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.sp),
+                                    color: yellowColor,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.sp),
+                                    child: Image.asset(
+                                      "assets/png/fleet/car1.png",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 2.w),
+                              Expanded(
+                                child: Container(
+                                  height: 10.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.sp),
+                                    color: yellowColor,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.sp),
+                                    child: Image.asset(
+                                      "assets/jpg/numberplate.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 0.5.h,),
+                          Divider(),
+                          Row(
+                            children: [
+                              customText(
+                                  text: "2- ",
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.2
+                              ),
+                              customText(
+                                  text: "Vehicle Or Equipment:",
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.2
+                              ),
+                              Spacer(),
+                              customText(
+                                  text: "Toyota RAV4",
+                                  fontSize: 15.sp,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: -0.2
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 1.h,),
+                          Row(
+                            children: [
+                              Expanded(
+                                child: Container(
+                                  height: 10.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.sp),
+                                    color: yellowColor,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.sp),
+                                    child: Image.asset(
+                                      "assets/png/fleet/car2.png",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 2.w),
+                              Expanded(
+                                child: Container(
+                                  height: 10.h,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15.sp),
+                                    color: yellowColor,
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(15.sp),
+                                    child: Image.asset(
+                                      "assets/jpg/numberplate.jpg",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 0.5.h,),
+
                         ],
                       ),
                       Divider(),
@@ -318,7 +429,8 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                       ),
 
                     ],
-                  ):Column(
+                  ):
+                  isOrderDetail == false ? Column(
                     children: [
                       Row(
                         children: [
@@ -452,6 +564,65 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                         ],
                       ),
                     ],
+                  ):
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          customText(
+                              text: "Fuel Price Per Gallon",
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.2
+                          ),
+                          Spacer(),
+                          customText(
+                              text: "\$10.00",
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.2
+                          ),
+                        ],
+                      ),
+                      Divider(),
+                      SizedBox(height: 0.5.h,),
+                      Row(
+                        children: [
+                          customText(
+                              text: "Order Quantity:",
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.2
+                          ),
+                          Spacer(),
+                          customText(
+                              text: "10.5 Gallons",
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.2
+                          ),
+                        ],
+                      ),
+                      Divider(),
+                      SizedBox(height: 0.5.h,),
+                      Row(
+                        children: [
+                          customText(
+                              text: "Total:",
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.2
+                          ),
+                          Spacer(),
+                          customText(
+                              text: "\$154.00",
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w400,
+                              letterSpacing: -0.2
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   SizedBox(height: isButton == true ? 2.h: 0.h),
                   isButton == true ?
@@ -469,7 +640,7 @@ Future<void> invoiceDialog(BuildContext context, {String? order,bool? isSubscrip
                 top: 1.h,
                 right: 2.5.w,
                 child: InkWell(
-                  onTap: (){
+                  onTap: onCancelTap ?? (){
                     Get.back();
                   },
                     child: Icon(Icons.cancel_outlined, size: 21.sp,)))

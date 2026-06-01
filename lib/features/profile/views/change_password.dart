@@ -44,7 +44,7 @@ class ChangePasswordScreen extends GetView<ProfileController> {
                     SizedBox(height: 3.5.h,),
                     buttonWidget("Update", whiteColor, isGradient: true, onTap: (){
                       customDialog(context, containerClr: blueColor, title: "Password has been updated successfully", ontap: (){
-                        Get.back();
+                        Get.toNamed("profile");
                       });
                     })
                   ],

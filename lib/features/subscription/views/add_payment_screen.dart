@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:too_easy_fuel/widgets/app_bar_widget.dart';
 import 'package:too_easy_fuel/widgets/background_widget.dart';
 
 import '../../../../constants/color_constants.dart';
@@ -83,11 +84,13 @@ class AddPaymentScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isButton = Get.arguments;
     return Scaffold(
       body: radialBackground(
         child: SingleChildScrollView(
           child: Column(
             children: [
+              isButton == false ? appBar("Add Payment"):
               simpleAppBar("Add Payment", isBack: true, spacing: 16.w),
               SizedBox(height: 3.h),
               Padding(
@@ -150,7 +153,7 @@ class AddPaymentScreen extends StatelessWidget {
                           fontsize: 15.5.sp,
                           height: 5.h,
                           onTap: (){
-                            Get.toNamed("PaymentMethod");
+                            Get.toNamed("PaymentMethod", arguments: isButton);
                           }
                         ),
                       ],
@@ -175,6 +178,7 @@ class AddPaymentScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 4.h),
+              isButton == false ? SizedBox.shrink():
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: buttonWidget(
@@ -184,7 +188,7 @@ class AddPaymentScreen extends StatelessWidget {
                   height: 6.h,
                   fontsize: 15.5.sp,
                   onTap: () {
-                    invoiceDialog(context,isSubscription: true);
+                    invoiceDialog(context,isSubscription: true, isButton: true);
                   }
                 ),
               ),

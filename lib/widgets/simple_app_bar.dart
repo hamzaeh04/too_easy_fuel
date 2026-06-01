@@ -5,11 +5,12 @@ import 'package:sizer/sizer.dart';
 import '../constants/color_constants.dart';
 import 'customText_widget.dart';
 
-Widget simpleAppBar(String title, {bool? isBack = true,double? spacing}){
+Widget simpleAppBar(String title, {bool? isBack = true,double? spacing, bool? isSkip = false}){
   return Padding(
     padding: EdgeInsets.only(top: 6.h, left: 5.w, right: 5.w),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         isBack == false ? SizedBox(width: 12.w,):
         InkWell(
@@ -36,8 +37,26 @@ Widget simpleAppBar(String title, {bool? isBack = true,double? spacing}){
             fontWeight: FontWeight.w700,
             fontFamily: "bl_melody"
         ),
-
-
+        Spacer(),
+        Column(
+          children: [
+            InkWell(
+              onTap: (){
+                Get.offAllNamed("navbar");
+              },
+              child: customText(
+                text: "Skip",
+                fontSize: 15.sp,
+                color: blackColor.withValues(alpha: 0.7),
+                fontWeight: FontWeight.w400,
+                fontFamily: "inter",
+                txtDecoration: TextDecoration.underline,
+                decorationColor: darkGreyColor,
+              ),
+            ),
+            SizedBox(height: 0.5.h,)
+          ],
+        ),
       ],
     ),
   );

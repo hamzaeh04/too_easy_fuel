@@ -13,6 +13,8 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
 
 import '../../../constants/color_constants.dart';
+import '../../home/widget/add_equipment_bottom_sheet.dart';
+import '../../home/widget/add_vehicle_bottom_sheet.dart';
 
 class FleetScreen extends GetView<FleetController> {
   const FleetScreen({super.key});
@@ -40,6 +42,8 @@ class FleetScreen extends GetView<FleetController> {
                           })),
                       SizedBox(width: 2.w,),
                       Expanded(child: buttonWidget("+ Add Vehicle", whiteColor, isGradient: true, onTap: (){
+                        showAddVehicleBottomSheet(context);
+
                       })),
                     ],
                   ),
@@ -58,7 +62,9 @@ class FleetScreen extends GetView<FleetController> {
                             Get.toNamed("seeEquipments");
                           })),
                       SizedBox(width: 2.w,),
-                      Expanded(child: buttonWidget("+ Equipments", whiteColor, isGradient: true)),
+                      Expanded(child: buttonWidget("+ Equipments", whiteColor, isGradient: true,onTap: (){
+                        showAddEquipmentBottomSheet(context);
+                      }), ),
                     ],
                   ),
                   SizedBox(height: 2.h,),

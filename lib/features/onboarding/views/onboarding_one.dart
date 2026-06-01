@@ -31,15 +31,12 @@ class OnboardingOne extends GetView<OnboardingController> {
               switch (controller.selectedIndex.value) {
                 case 0:
                   return onBoardingOne();
-
                 case 1:
                   return onBoardingTwo();
-
                 default:
                   return onBoardingThree();
               }
             }),
-
             /// 🔥 FIXED BOTTOM SECTION
             Positioned(
               bottom: 6.h,
@@ -61,13 +58,11 @@ class OnboardingOne extends GetView<OnboardingController> {
                       fontweight: FontWeight.w600,
                       onTap: (){
                         if(controller.selectedIndex.value == 2){
-                          Get.toNamed("signup");
+                          Get.toNamed("login");
                         }
-                        else
-                          {
-                            controller.updateIndex();
-                          }
-
+                        else {
+                          controller.updateIndex();
+                        }
                       }
                     ),
                   ),
@@ -81,7 +76,7 @@ class OnboardingOne extends GetView<OnboardingController> {
                     },
                     child: InkWell(
                       onTap: (){
-                        Get.toNamed("signup");
+                        Get.toNamed("login");
                       },
                       child: customText(
                         text: "Skip",

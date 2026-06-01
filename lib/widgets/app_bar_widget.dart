@@ -60,8 +60,6 @@ Widget appBar(String title, {bool? isBack = true, double? height, double? paddin
           Spacer(),
 
           InkWell(
-            onTap: (){
-            },
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 3.w),
               height: 5.h,
@@ -148,9 +146,7 @@ Widget appBar(String title, {bool? isBack = true, double? height, double? paddin
           Spacer(),
 
           InkWell(
-            onTap: (){
-              Get.toNamed("order");
-            },
+
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 3.w),
               height: 5.h,

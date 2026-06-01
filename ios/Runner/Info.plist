@@ -2,6 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+
+    <!-- Photo Library -->
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>This app needs access to your photo library to upload photos.</string>
+
+    <!-- Camera (photos + Stripe card scanning) -->
+    <key>NSCameraUsageDescription</key>
+    <string>Scan your card to add it automatically and to take photos.</string>
+
+    <!-- Photo Library Add (iOS 14+) -->
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>This app needs access to save photos.</string>
+
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

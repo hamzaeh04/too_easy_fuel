@@ -5,7 +5,7 @@ import 'package:too_easy_fuel/constants/color_constants.dart';
 import 'package:too_easy_fuel/widgets/button_widget.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
 
-Future<void> customDialog(BuildContext context, {Color? containerClr, String? imgPath, Color? imageClr, String? title, String? btnText, Color? btnTextClr, VoidCallback? ontap, VoidCallback? ontapCancel}) {
+Future<void> customDialog(BuildContext context, {Color? containerClr, String? imgPath, Color? imageClr, String? title, String? btnText, Color? btnTextClr, VoidCallback? ontap, VoidCallback? ontapCancel, bool? isButton2 = false, String? btnText2}) {
   return showDialog(
     context: context,
     builder: (context) {
@@ -44,7 +44,12 @@ Future<void> customDialog(BuildContext context, {Color? containerClr, String? im
                     SizedBox(height: 2.h,),
                     buttonWidget(btnText ?? "Ok", btnTextClr ?? whiteColor, isGradient: true, onTap: ontap ?? (){
                       Get.back();
-                    },fontsize: 15.sp)
+                    },fontsize: 15.sp),
+                    SizedBox(height: 1.h,),
+                    if(isButton2 == true)
+                      buttonWidget(btnText2 ?? "Ok", blueColor, borderColor: blueColor, onTap: (){
+                        Get.back();
+                      },fontsize: 15.sp),
                   ],
                 ),
               ),

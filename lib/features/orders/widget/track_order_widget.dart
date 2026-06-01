@@ -4,7 +4,7 @@ import 'package:sizer/sizer.dart';
 import '../../../constants/color_constants.dart';
 import '../../../widgets/customText_widget.dart';
 
-Widget trackOrderWidget({String? title, String? subTitle, String? imgPath, bool? step = false, bool? isLast = false}){
+Widget trackOrderWidget({String? title, String? subTitle, String? imgPath, bool? step = false, bool? isLast = false, bool? isComplete = false}){
   return Padding(
     padding: EdgeInsets.only(bottom: isLast == true ? 0.h: 1.5.h),
     child: Row(
@@ -20,7 +20,7 @@ Widget trackOrderWidget({String? title, String? subTitle, String? imgPath, bool?
                   shape: BoxShape.circle,
                   color: step == true ? blueColor: greyColor.withValues(alpha: 0.28)
               ),
-              child: Image.asset(imgPath ?? "", color: step == true ? whiteColor : null,),
+              child: Image.asset(imgPath ?? "", color: step == true ? whiteColor : greyColor,),
             ),
             // Vertical Divider
             isLast == true ? SizedBox.shrink() : Container(
@@ -35,6 +35,7 @@ Widget trackOrderWidget({String? title, String? subTitle, String? imgPath, bool?
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(height: step == true ? 0.7.h : 1.6.h,),
+            SizedBox(height: isComplete == true ? 0.75.h : 0.h,),
             customText(
                 text: title ?? "Order Received",
                 fontSize: 16.sp,

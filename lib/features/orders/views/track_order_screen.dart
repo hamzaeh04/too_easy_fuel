@@ -18,6 +18,8 @@ class TrackOrderScreen extends GetView<OrderController> {
   const TrackOrderScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    final isHistory = Get.arguments;
+
     // TODO: implement build
     return Scaffold(
       body: radialBackground(
@@ -34,12 +36,19 @@ class TrackOrderScreen extends GetView<OrderController> {
                     elevatedContainer(
                       hPadding: 5.w,
                       vPadding: 2.h,
-                      child: Column(
+                      child: isHistory == false ? Column(
                         children: [
                           trackOrderWidget(title: "Order Received", subTitle: "In progress...", imgPath: "assets/png/track_order/recieved.png", step: true,),
                           trackOrderWidget(title: "Fuel on the Way", imgPath: "assets/png/track_order/way.png",),
                           trackOrderWidget(title: "Fueling Up", imgPath: "assets/png/track_order/fueling.png",),
                           trackOrderWidget(title: "Completed", imgPath: "assets/png/track_order/check.png", isLast: true),
+                        ],
+                      ): Column(
+                        children: [
+                          trackOrderWidget(title: "Order Received", imgPath: "assets/png/track_order/recieved.png", step: true, isComplete: true),
+                          trackOrderWidget(title: "Fuel on the Way", imgPath: "assets/png/track_order/way.png", step: true, isComplete: true),
+                          trackOrderWidget(title: "Fueling Up", imgPath: "assets/png/track_order/fueling.png", step: true, isComplete: true),
+                          trackOrderWidget(title: "Completed", imgPath: "assets/png/track_order/check.png", isLast: true, step: true, isComplete: true),
                         ],
                       )
                     ),

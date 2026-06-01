@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:too_easy_fuel/features/home/controller/home_controller.dart';
 import 'package:too_easy_fuel/features/splash/views/splash_screen.dart';
 import 'package:too_easy_fuel/core/routes/App_Routing.dart';
 import 'package:too_easy_fuel/core/bindings/init_binding.dart';
 
 import 'constants/color_constants.dart';
+import 'features/navbar/controller/navbar_controller.dart';
 import 'features/orders/controller/order_controller.dart';
 
 void main() {
+  Get.put(NavbarController()); // 👈 add this
   Get.put(OrderController()); // 👈 add this
   runApp(const MyApp());
 }

@@ -9,7 +9,7 @@ import '../../../widgets/customText_widget.dart';
 import '../../setting/widgets/elevated_container.dart';
 import 'invoice_dialog_widget.dart';
 
-Widget orderDetailWidget(BuildContext context,{String? date, VoidCallback? ontapTrack, VoidCallback? ontapDetails}){
+Widget orderDetailWidget(BuildContext context,{String? date, VoidCallback? ontapTrack, VoidCallback? ontapDetails, bool? isHistory = false}){
   return Padding(
     padding: EdgeInsets.only(bottom: 1.5.h),
     child: elevatedContainer(
@@ -125,11 +125,13 @@ Widget orderDetailWidget(BuildContext context,{String? date, VoidCallback? ontap
             Row(
               children: [
                 Expanded(child: buttonWidget("View Details", whiteColor, isGradient: true, onTap: ontapDetails ?? (){
-                  invoiceDialog(context);
+                  invoiceDialog(context, isOrderDetail: true,isSubscription: false, onCancelTap: (){
+                    Get.back(closeOverlays: true);
+                  });
                 })),
                 SizedBox(width: 2.5.w,),
                 Expanded(child: buttonWidget("Track Order", blueColor, borderColor: blueColor, onTap: ontapTrack ?? (){
-                Get.toNamed("trackOrder");
+                Get.toNamed("trackOrder", arguments: isHistory);
                 })),
               ],
             )

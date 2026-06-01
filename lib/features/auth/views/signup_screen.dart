@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -60,35 +62,63 @@ class SignupScreen extends GetView<AuthController> {
                 SizedBox(height: 2.h),
                 Padding(
                   padding: EdgeInsets.only(left: 1.w),
-                  child: Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: blueAppBarColor
+                  child: InkWell(
+                    onTap: (){
+                      controller.pickImage();
+                    },
+                    child: Row(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: blueAppBarColor
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.all(2.2.w),
+                            child: Image.asset("assets/png/auth_image/camera_icon.png",height: 3.h,width: 6.w),
+                          ),
                         ),
-                        child: Padding(
-                          padding: EdgeInsets.all(2.2.w),
-                          child: Image.asset("assets/png/auth_image/camera.png",height: 3.h,width: 6.w),
+                        SizedBox(width: 2.w),
+                        customText(
+                          text:
+                          "Upload Profile Image",
+                          fontSize: 15.sp,
+                          color: Colors.black54,
+                          textAlign: TextAlign.center,
+                        ),customText(
+                          text:
+                          "*",
+                          fontSize: 15.sp,
+                          color: redColor,
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      SizedBox(width: 2.w),
-                      customText(
-                        text:
-                        "Upload Profile Image",
-                        fontSize: 15.sp,
-                        color: Colors.black54,
-                        textAlign: TextAlign.center,
-                      ),customText(
-                        text:
-                        "*",
-                        fontSize: 15.sp,
-                        color: redColor,
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
+
+                // SizedBox(height: 1.h),
+                // Center(
+                //   child: Stack(
+                //     children: [
+                //       Container(
+                //         height: 16.h,
+                //         width: 35.w,
+                //         decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(15.sp),
+                //             color: Colors.yellow
+                //         ),
+                //         child: controller.imageFile != null
+                //             ? Image.file(File(controller.imageFile!.path))
+                //             : const SizedBox(),
+                //       ),
+                //       Positioned(
+                //         top: 0.5.h,
+                //           right: 1.5.w,
+                //           child: Icon(Icons.cancel_outlined))
+                //     ],
+                //   ),
+                // ),
                 SizedBox(height: 4.h),
                 Padding(
                   padding: EdgeInsets.only(left: 2.5.w),
@@ -136,6 +166,7 @@ class SignupScreen extends GetView<AuthController> {
                 ),
                 SizedBox(height: 4.h),
                 buttonWidget("Signup", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
+                  controller.isForgot.value == false;
                   Get.toNamed("otp");
                 }),
                 SizedBox(height: 4.h),
@@ -151,12 +182,7 @@ class SignupScreen extends GetView<AuthController> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        InkWell(
-                          onTap: (){
-                            Get.toNamed("choseplan");
-                          },
-                            child: Image.asset("assets/png/social_icons/google.png",width: 9.w,)
-                        ),
+                        Image.asset("assets/png/social_icons/google.png",width: 8.w,),
                         SizedBox(width: 4.w),
                         Image.asset("assets/png/social_icons/apple.png",width: 10.w,),
                       ],

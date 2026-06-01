@@ -190,10 +190,14 @@ class SubscriptionPayment extends StatelessWidget {
                     }),
                     SizedBox(height: 2.h),
                     buttonWidget(
-                      "Select Plan",
+                      "Cancel",
                       blueAppBarColor,
                       borderColor: blueAppBarColor,
                       fontsize: 15.5.sp,
+                      onTap: (){
+                        Get.offAllNamed("navbar");
+                      }
+
                     ),
                   ],
                 ),

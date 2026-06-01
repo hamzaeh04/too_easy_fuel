@@ -13,6 +13,7 @@ import 'package:too_easy_fuel/widgets/app_bar_widget.dart';
 import 'package:too_easy_fuel/widgets/background_widget.dart';
 import 'package:too_easy_fuel/widgets/button_widget.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
+import 'package:too_easy_fuel/widgets/custom_dialog_widget.dart';
 
 import '../../../constants/color_constants.dart';
 
@@ -67,15 +68,21 @@ class ProfileScreen extends GetView<ProfileController> {
                         SizedBox(height: 1.75.h,),
                         menu("Edit Profile", color: lightBlueColor, imagePath: "assets/png/faqs.png", vMargin: 0.5.h, ontap: () => Get.toNamed("editprofile")),
                         menu("Subscription", color: lightYellowColor, imagePath: "assets/png/support.png", vMargin: 0.5.h, ontap: () => Get.toNamed("SubscriptionPlan")),
-                        menu("Payment Method", color: lightGreenColor, imagePath: "assets/png/about.png", vMargin: 0.5.h),
+                        menu("Payment Method", color: lightGreenColor, imagePath: "assets/png/about.png", vMargin: 0.5.h, ontap: () => Get.toNamed("AddPayment", arguments: false)),
                         menu("Change Password", color: lightPurpleColor, imagePath: "assets/png/track_order/changePass.png", vMargin: 0.5.h, ontap: ()=> Get.toNamed("changePassword")),
                         menu("Notification Settings", color: lightOrangeColor, imagePath: "assets/png/track_order/notification.png", vMargin: 0.5.h, ontap: ()=> Get.toNamed("notificationSetting")),
-                        menu("Help & Support", color: lightPinkColor, imagePath: "assets/png/track_order/help.png", vMargin: 0.5.h),
+                        menu("Help & Support", color: lightPinkColor, imagePath: "assets/png/track_order/help.png", vMargin: 0.5.h, ontap: () => Get.toNamed("helpsupport")),
 
                         SizedBox(height: 3.h,),
                         
                         buttonWidget("Logout", redAppBarColor, colors: redAppBarColor.withValues(alpha: 0.12), onTap: (){
-                          Get.offAllNamed("login");
+                          // Get.offAllNamed("login");
+                          customDialog(context, imgPath: "assets/png/home/alert_icon.png", containerClr: redSharpColor, title: "Are you sure you want to logout?", btnText: "Yes", isButton2: true, btnText2: "No", ontap: (){
+                            Get.offAllNamed("login");
+                            customDialog(context, title: "You’ve been logged out successfully.", ontap: (){
+                              Get.back();
+                            });
+                          });
                         }),
                         SizedBox(height: 5.h,),
 

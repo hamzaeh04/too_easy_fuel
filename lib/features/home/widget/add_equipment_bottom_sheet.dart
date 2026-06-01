@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
+import 'package:too_easy_fuel/features/navbar/controller/navbar_controller.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_dialog_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_text_feild.dart';
 import 'package:too_easy_fuel/widgets/button_widget.dart';
 
 void showAddEquipmentBottomSheet(BuildContext context) {
+  final NavbarController navbarController = Get.find<NavbarController>();
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -104,7 +108,7 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                         Row(
                           children: [
                             customText(
-                                text: "Upload Vehicle Image ",
+                                text: "Upload Equipment Image ",
                                 fontSize: 15.sp,
                                 color: blackColor,
                                 fontFamily: "inter",
@@ -119,33 +123,76 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                           ],
                         ),
                         SizedBox(height: 1.h),
-                        Container(
-                          height: 15.h,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                              color: whiteColor,
-                              borderRadius: BorderRadius.circular(18.sp),
-                              border: Border.all(color: greyColor.withValues(alpha: 0.45)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: blackColor.withOpacity(0.04),
-                                  blurRadius: 10,
-                                  offset: Offset(0, 4),
+                        Stack(
+                          children: [
+                            InkWell(
+                              onTap: (){
+                                navbarController.pickImage();
+                              },
+                              child: Container(
+                                height: 15.h,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                    color: whiteColor,
+                                    borderRadius: BorderRadius.circular(18.sp),
+                                    border: Border.all(color: greyColor.withValues(alpha: 0.45)),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: blackColor.withOpacity(0.04),
+                                        blurRadius: 10,
+                                        offset: Offset(0, 4),
+                                      ),
+                                    ]
                                 ),
-                              ]
-                          ),
-                          child: Center(
-                            child: Container(
-                              height: 5.h,
-                              width: 5.h,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: blueColor,
+                                child: Obx(() {
+                                  final file = navbarController.imageFile.value;
+
+                                  return file == null
+                                      ? Center(
+                                    child: Container(
+                                      height: 5.h,
+                                      width: 5.h,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: blueColor,
+                                      ),
+                                      child: Icon(
+                                        Icons.camera_alt_outlined,
+                                        color: whiteColor,
+                                        size: 18.sp,
+                                      ),
+                                    ),
+                                  )
+                                      : ClipRRect(
+                                    borderRadius: BorderRadius.circular(18.sp),
+                                    child: Image.file(
+                                      File(file.path),
+                                      fit: BoxFit.cover,
+                                      width: double.infinity,
+                                      height: 15.h,
+                                    ),
+                                  );
+                                }),
                               ),
-                              child: Icon(Icons.camera_alt_outlined, color: whiteColor, size: 18.sp),
                             ),
-                          ),
+
+                            Positioned(
+                                top: 0.9.h,
+                                right: 3.w,
+                                child: InkWell(
+                                    onTap: (){
+                                      navbarController.clearImage();
+                                    },
+                                    child: Obx((){
+                                      final file = navbarController.imageFile.value;
+
+                                      return file == null ?
+                                      SizedBox.shrink():
+                                      Icon(Icons.delete, color: redColor,);
+                                    })))
+                          ],
                         ),
+
                         SizedBox(height: 2.h),
                         customTextField("Equipment Type", "Enter Type (e.g., Generator, Mower)", isObscure: false.obs),
                         SizedBox(height: 2.h),
@@ -156,7 +203,7 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                         customTextField("Tank Size (Gallons)", "Enter Size (e.g., 15, 20)", isObscure: false.obs,),
                         SizedBox(height: 4.h),
                         buttonWidget("Add Equipment", whiteColor, isGradient: true, onTap: (){
-                          customDialog(context, title: "Equipment added successfully!", btnText: "Ok");
+                          customDialog(context, title: "Equipment added successfully!", btnText: "Ok", ontap: () => Get.until((route) => route.isFirst), ontapCancel: ()=> Get.until((route) => route.isFirst));
                         }),
                         SizedBox(height: 4.h),
                       ],
@@ -168,7 +215,10 @@ void showAddEquipmentBottomSheet(BuildContext context) {
             Positioned(
               right: 0.w,
               child: InkWell(
-                  onTap: () => Get.back(),
+                  onTap: () {
+                    Get.back();
+                    navbarController.clearImage();
+                  },
                   child: Icon(Icons.cancel_outlined, size: 21.sp,)
               ),)
 

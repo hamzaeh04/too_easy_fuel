@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/features/home/controller/home_controller.dart';
+import 'package:too_easy_fuel/features/navbar/controller/navbar_controller.dart';
 import 'package:too_easy_fuel/widgets/app_bar_widget.dart';
 import 'package:too_easy_fuel/widgets/background_widget.dart';
 import 'package:too_easy_fuel/features/setting/widgets/elevated_container.dart';
@@ -13,8 +14,8 @@ import '../widget/add_equipment_bottom_sheet.dart';
 import '../widget/add_vehicle_bottom_sheet.dart';
 
 class HomeScreen extends GetView<HomeController> {
-  const HomeScreen({super.key});
-
+  HomeScreen({super.key});
+  final NavbarController navbarController = Get.find<NavbarController>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -124,14 +125,19 @@ class HomeScreen extends GetView<HomeController> {
                                   color: blueColor,
                                   fontFamily: 'bl_melody',
                                 ),
-                                customText(
-                                  text: "View All",
-                                  fontSize: 14.5.sp,
-                                  fontWeight: FontWeight.w500,
-                                  color: redAppBarColor,
-                                  fontFamily: 'inter',
-                                  txtDecoration: TextDecoration.underline,
-                                  decorationColor: redAppBarColor
+                                InkWell(
+                                  onTap: (){
+                                    navbarController.changeIndex(1);
+                                  },
+                                  child: customText(
+                                    text: "View All",
+                                    fontSize: 14.5.sp,
+                                    fontWeight: FontWeight.w500,
+                                    color: redAppBarColor,
+                                    fontFamily: 'inter',
+                                    txtDecoration: TextDecoration.underline,
+                                    decorationColor: redAppBarColor,
+                                  ),
                                 ),
                               ],
                             ),
@@ -259,37 +265,40 @@ class HomeScreen extends GetView<HomeController> {
                           Expanded(
                             child: Column(
                               children: [
-                                elevatedContainer(
-                                  vPadding: 2.h,
-                                  hPadding: 4.w,
-                                  containerColor: whiteColor,
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.all(12.sp),
-                                        decoration: BoxDecoration(
-                                          color: neonGreenColor.withValues(alpha: 0.1), // light green accent
-                                          shape: BoxShape.circle,
+                                InkWell(
+                                  onTap: () => Get.toNamed("seeVehicle"),
+                                  child: elevatedContainer(
+                                    vPadding: 2.h,
+                                    hPadding: 4.w,
+                                    containerColor: whiteColor,
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.all(12.sp),
+                                          decoration: BoxDecoration(
+                                            color: neonGreenColor.withValues(alpha: 0.1), // light green accent
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.asset("assets/png/home/vehicle_icon.png", height: 2.5.h,)
                                         ),
-                                        child: Image.asset("assets/png/home/vehicle_icon.png", height: 2.5.h,)
-                                      ),
-                                      SizedBox(height: 1.5.h),
-                                      customText(
-                                        text: "Vehicle",
-                                        fontSize: 15.5.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: blackColor,
-                                        fontFamily: 'inter',
-                                      ),
-                                      SizedBox(height: 0.5.h),
-                                      customText(
-                                        text: "Manage fleet",
-                                        fontSize: 14.5.sp,
-                                        color: Color(0xFF4B5563),
-                                        fontFamily: 'inter',
-                                      ),
-                                    ],
+                                        SizedBox(height: 1.5.h),
+                                        customText(
+                                          text: "Vehicle",
+                                          fontSize: 15.5.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: blackColor,
+                                          fontFamily: 'inter',
+                                        ),
+                                        SizedBox(height: 0.5.h),
+                                        customText(
+                                          text: "Manage fleet",
+                                          fontSize: 14.5.sp,
+                                          color: Color(0xFF4B5563),
+                                          fontFamily: 'inter',
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
 
@@ -323,38 +332,41 @@ class HomeScreen extends GetView<HomeController> {
                           Expanded(
                             child: Column(
                               children: [
-                                elevatedContainer(
-                                  vPadding: 2.h,
-                                  hPadding: 4.w,
-                                  containerColor: whiteColor,
-                                  child: Column(
+                                InkWell(
+                                  onTap: () => Get.toNamed("seeEquipments"),
+                                  child: elevatedContainer(
+                                    vPadding: 2.h,
+                                    hPadding: 4.w,
+                                    containerColor: whiteColor,
+                                    child: Column(
 
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                          padding: EdgeInsets.all(12.sp),
-                                          decoration: BoxDecoration(
-                                            color: lightBlueColor.withValues(alpha: 0.7), // light green accent
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.asset("assets/png/home/equipment_icon.png", height: 2.5.h,)
-                                      ),
-                                      SizedBox(height: 1.5.h),
-                                      customText(
-                                        text: "Equipment",
-                                        fontSize: 15.5.sp,
-                                        fontWeight: FontWeight.w700,
-                                        color: blackColor,
-                                        fontFamily: 'inter',
-                                      ),
-                                      SizedBox(height: 0.5.h),
-                                      customText(
-                                        text: "Manage fleet",
-                                        fontSize: 14.5.sp,
-                                        color: Color(0xFF4B5563),
-                                        fontFamily: 'inter',
-                                      ),
-                                    ],
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Container(
+                                            padding: EdgeInsets.all(12.sp),
+                                            decoration: BoxDecoration(
+                                              color: lightBlueColor.withValues(alpha: 0.7), // light green accent
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: Image.asset("assets/png/home/equipment_icon.png", height: 2.5.h,)
+                                        ),
+                                        SizedBox(height: 1.5.h),
+                                        customText(
+                                          text: "Equipment",
+                                          fontSize: 15.5.sp,
+                                          fontWeight: FontWeight.w700,
+                                          color: blackColor,
+                                          fontFamily: 'inter',
+                                        ),
+                                        SizedBox(height: 0.5.h),
+                                        customText(
+                                          text: "Manage fleet",
+                                          fontSize: 14.5.sp,
+                                          color: Color(0xFF4B5563),
+                                          fontFamily: 'inter',
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
 

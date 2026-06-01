@@ -6,7 +6,7 @@ import 'package:too_easy_fuel/features/auth/controller/auth_controller.dart';
 import '../constants/color_constants.dart';
 import 'customText_widget.dart';
 
-Widget emailTextFeild(String title,String hinttext,String path,AuthController auth,{bool? ispassword,RxBool? isPasswordHidden,VoidCallback? onSuffixTap,Widget? suffixIcon,bool? showSuffix,bool? isPaymentScreen = false}){
+Widget emailTextFeild(String title,String hinttext,String path,AuthController auth,{TextEditingController? controller, bool? ispassword,RxBool? isPasswordHidden,VoidCallback? onSuffixTap,Widget? suffixIcon,bool? showSuffix,bool? isPaymentScreen = false}){
   return Column(
     children: [
       Row(
@@ -31,6 +31,7 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
       ispassword == true
           ? Obx(() {
               return TextField(
+                controller: controller,
                 obscureText: isPasswordHidden!.value,
                 decoration: InputDecoration(
                   filled: true, // 🔥 IMPORTANT
@@ -106,6 +107,8 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
               );
             })
           : TextField(
+        controller: controller,
+
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
@@ -174,7 +177,7 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
   );
 
 }
-Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure, Icon? suffix, VoidCallback? onSuffixTap}){
+Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure, Widget? suffix, VoidCallback? onSuffixTap}){
   return Column(
     children: [
       Row(

@@ -42,10 +42,17 @@ dependencies:
   fluttertoast: ^9.0.0
   sizer: ^3.1.3
   flutter_easyloading: ^3.0.5
+  image_picker: ^1.2.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/png/too_easy_fuel_logo.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

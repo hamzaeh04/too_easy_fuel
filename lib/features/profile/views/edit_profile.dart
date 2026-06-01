@@ -46,7 +46,7 @@ class EditProfileScreen extends GetView<ProfileController> {
                       SizedBox(height: 3.5.h,),
                       buttonWidget("Save Changes", whiteColor, isGradient: true, onTap: (){
                         customDialog(context, containerClr: blueColor, title: "Profile has been updated successfully", ontap: (){
-                          Get.back();
+                          Get.toNamed("profile");
                         });
                       })
                     ],

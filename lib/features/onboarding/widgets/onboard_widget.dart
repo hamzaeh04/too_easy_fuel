@@ -24,7 +24,7 @@ Widget onBoardingOne(){
       ),
 
       customText(
-        text: "Fuel Delivery On Demand",
+        text: "Fuel Delivery On\nDemand",
         color: whiteColor,
         fontFamily: "bl_melody",
         fontSize: 24.sp,

@@ -17,6 +17,7 @@ const greyColor = Color(0xFF99A1AF);
 const yellowColor = Color(0xFFFEF200);
 const blueAppBarColor = Color(0xFF2B4E76);
 const redAppBarColor = Color(0xFFBA2416);
+const redSharpColor = Color(0xFFFF0000);
 const pinkColor = Color(0xFFFFB2BE);
 const offWhiteColor = Color(0xFFF8F8F8);
 const midYellowColor = Color(0xFFFFF8EA);
