@@ -49,9 +49,9 @@ class LoginScreen extends GetView<AuthController> {
                   fontSize: 15.sp,
                 ),
                 SizedBox(height: 3.h),
-                emailTextFeild("Full Name", "Enter your fullname","assets/png/auth_image/field-icons-user.png",controller),
+                emailTextFeild("Full Name", "Enter your fullname","assets/png/auth_image/field-icons-user.png",controller,controller: controller.emailController,),
                 SizedBox(height: 1.h),
-                emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.loginPassword),
+                emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.loginPassword,controller: controller.passwordController),
                 SizedBox(height: 2.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,7 +117,8 @@ class LoginScreen extends GetView<AuthController> {
                 SizedBox(height: 4.h),
                 buttonWidget("Login", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
                   // Get.toNamed("helpsupport");
-                  Get.offAllNamed("navbar");
+                  controller.login();
+
                 }),
                 SizedBox(height: 3.h),
                 Column(

@@ -50,7 +50,7 @@ class OtpVerification extends GetView<AuthController> {
                   fontSize: 15.sp,
                 ),
                 SizedBox(height: 3.h),
-                emailTextFeild("OTP", "Enter OTP","assets/png/auth_image/field-icons-Veri.png",controller),
+                emailTextFeild("OTP", "Enter OTP","assets/png/auth_image/field-icons-Veri.png",controller,controller: controller.otpController),
                 SizedBox(height: 2.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,37 +59,59 @@ class OtpVerification extends GetView<AuthController> {
                       children: [
                         Image.asset("assets/png/auth_image/clock_icon_auth.png",width: 5.w,),
                         SizedBox(width: 2.w),
-                        customText(
-                          text:
-                          "Resending in 00:50",
-                          fontSize: 15.sp,
-                        ),
+                        Obx(
+                              () {
+                            final totalSeconds = controller.remainingSeconds.value;
+
+                            final minutes = totalSeconds ~/ 60;
+                            final seconds = totalSeconds % 60;
+
+                            return customText(
+                              text: totalSeconds > 0
+                                  ? "Resending in ${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}"
+                                  : "Resend OTP",
+                              fontSize: 15.sp,
+                            );
+                          },
+                        )
                       ],
                     ),
-                    customText(
-                      text:
-                      "Resend Code",
-                      fontSize: 15.sp,
-                      color: purpleColor,
-                      txtDecoration: TextDecoration.underline,
-                      decorationColor: purpleColor
+                    Obx(
+                          () {
+                        final canResend =
+                            controller.remainingSeconds.value == 0;
 
-                    ),
+                        return GestureDetector(
+                          onTap: canResend
+                              ? () {
+                            // Resend API
+                            controller.startTimer();
+                            controller.resendOtp(context,type: "email_verification");
+                          }
+                              : null,
+                          child: customText(
+                            text: "Resend Code",
+                            fontSize: 15.sp,
+                            color: canResend
+                                ? purpleColor
+                                : Colors.grey,
+                            txtDecoration: TextDecoration.underline,
+                            decorationColor: canResend
+                                ? purpleColor
+                                : Colors.grey,
+                          ),
+                        );
+                      },
+                    )
                   ],
                 ),
                 SizedBox(height: 4.h),
                 buttonWidget("Continue", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
-
-                  if(controller.isForgot.value == true){
-                    Get.toNamed("forgotsetpassword");
+                  if(controller.isForgot.value == false){
+                    controller.verifyOtp(context,type: "email_verification");
                   }
-                 else{
-                    // Get.toNamed("login");
-                    customDialog(context, containerClr: blueAppBarColor, title: "Your email has been verified successfully. You can now continue to the app.", btnText: "Ok", imgPath: "assets/png/check_icon.png", imageClr: whiteColor, btnTextClr: whiteColor, ontap: (){
-                      Get.offAllNamed("choseplan");
-                    }, ontapCancel: (){
-                      Get.offAllNamed("choseplan");
-                    });
+                  else{
+
                   }
                 }),
                 controller.isForgot.value == true ?

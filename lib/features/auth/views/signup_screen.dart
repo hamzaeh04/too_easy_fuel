@@ -52,19 +52,19 @@ class SignupScreen extends GetView<AuthController> {
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 3.h),
-                emailTextFeild("Full Name", "Enter your fullname","assets/png/auth_image/field-icons-user.png",controller),
+                emailTextFeild("Full Name", "Enter your fullname","assets/png/auth_image/field-icons-user.png",controller,controller: controller.fullNameController),
                 SizedBox(height: 1.h),
-                emailTextFeild("Email", "Enter your e-mail address","assets/png/auth_image/field-icons-email.png",controller),
+                emailTextFeild("Email", "Enter your e-mail address","assets/png/auth_image/field-icons-email.png",controller,controller: controller.emailController),
                 SizedBox(height: 1.h),
-                emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden:controller.signupPassword),
+                emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden:controller.signupPassword,controller: controller.passwordController),
                 SizedBox(height: 1.h),
-                emailTextFeild("Confirm Password", "Enter confirm password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.signupConfirmPassword),
+                emailTextFeild("Confirm Password", "Enter confirm password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.signupConfirmPassword,controller: controller.confirmPaswordController),
                 SizedBox(height: 2.h),
                 Padding(
                   padding: EdgeInsets.only(left: 1.w),
                   child: InkWell(
                     onTap: (){
-                      controller.pickImage();
+                      controller.pickImage(controller.profilePictureSignup);
                     },
                     child: Row(
                       children: [
@@ -167,7 +167,8 @@ class SignupScreen extends GetView<AuthController> {
                 SizedBox(height: 4.h),
                 buttonWidget("Signup", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
                   controller.isForgot.value == false;
-                  Get.toNamed("otp");
+                  controller.signUp(context);
+
                 }),
                 SizedBox(height: 4.h),
                 Column(

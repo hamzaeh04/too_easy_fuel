@@ -7,13 +7,16 @@ import 'package:too_easy_fuel/features/splash/views/splash_screen.dart';
 import 'package:too_easy_fuel/core/routes/App_Routing.dart';
 import 'package:too_easy_fuel/core/bindings/init_binding.dart';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'constants/color_constants.dart';
 import 'features/navbar/controller/navbar_controller.dart';
 import 'features/orders/controller/order_controller.dart';
 
-void main() {
-  Get.put(NavbarController()); // 👈 add this
-  Get.put(OrderController()); // 👈 add this
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  Get.put<SharedPreferences>(prefs, permanent: true);
   runApp(const MyApp());
 }
 
