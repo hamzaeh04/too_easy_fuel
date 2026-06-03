@@ -49,11 +49,11 @@ class EnterEmailScreen extends GetView<AuthController> {
                   fontSize: 15.sp,
                 ),
                 SizedBox(height: 3.h),
-                emailTextFeild("Email", "Enter your e-mail address","assets/png/auth_image/field-icons-email.png",controller),
+                emailTextFeild("Email", "Enter your e-mail address","assets/png/auth_image/field-icons-email.png",controller, controller: controller.forgotEmailController),
                 SizedBox(height: 4.h),
                 buttonWidget("Continue", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
                   // Get.toNamed("otp");
-                  Get.toNamed("otp");
+                  controller.ForgotPassword();
 
                 }),
                 SizedBox(height: 4.h),

@@ -9,6 +9,7 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_text_feild.dart';
 
 import '../../../constants/color_constants.dart';
+import '../../../utils/utility.dart';
 import '../../../widgets/customText_widget.dart';
 
 class SignupScreen extends GetView<AuthController> {
@@ -166,8 +167,19 @@ class SignupScreen extends GetView<AuthController> {
                 ),
                 SizedBox(height: 4.h),
                 buttonWidget("Signup", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
-                  controller.isForgot.value == false;
-                  controller.signUp(context);
+
+                  if (controller.emailController.text.trim().isNotEmpty &&
+                      controller.passwordController.text.trim().isNotEmpty &&
+                      controller.fullNameController.text.trim().isNotEmpty &&
+                      controller.confirmPaswordController.text.trim().isNotEmpty
+                  ) {
+                    controller.isForgot.value == false;
+
+                    controller.signUp(context);
+                  } else {
+                    Utils.showToast("Fill all the required fields", true);
+                  }
+
 
                 }),
                 SizedBox(height: 4.h),
@@ -202,6 +214,7 @@ class SignupScreen extends GetView<AuthController> {
                         InkWell(
                           onTap: (){
                             Get.toNamed("login");
+                            controller.clearAllSignUpFeilds();
                           },
                           child: customText(
                             text:

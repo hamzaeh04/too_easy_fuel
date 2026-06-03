@@ -111,7 +111,7 @@ class OtpVerification extends GetView<AuthController> {
                     controller.verifyOtp(context,type: "email_verification");
                   }
                   else{
-
+                    controller.verifyForgotOtp();
                   }
                 }),
                 controller.isForgot.value == true ?

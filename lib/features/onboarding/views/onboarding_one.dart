@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
+import 'package:too_easy_fuel/constants/local_db_key.dart';
+import 'package:too_easy_fuel/utils/shared_prefrences_methods.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
 import 'package:too_easy_fuel/features/onboarding/widgets/onboard_widget.dart';
 import 'package:too_easy_fuel/features/onboarding/widgets/slide_widget.dart';
@@ -10,7 +12,8 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 import '../controller/onboarding_controller.dart';
 
 class OnboardingOne extends GetView<OnboardingController> {
-  const OnboardingOne({super.key});
+  OnboardingOne({super.key});
+  final prefs = SharedPreferencesMethod.storage;
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +62,7 @@ class OnboardingOne extends GetView<OnboardingController> {
                       onTap: (){
                         if(controller.selectedIndex.value == 2){
                           Get.toNamed("login");
+                          prefs.setBool(LocalDBKeys.FIRSTTIMEOPENAPP, true);
                         }
                         else {
                           controller.updateIndex();
@@ -77,6 +81,7 @@ class OnboardingOne extends GetView<OnboardingController> {
                     child: InkWell(
                       onTap: (){
                         Get.toNamed("login");
+                        prefs.setBool(LocalDBKeys.FIRSTTIMEOPENAPP, true);
                       },
                       child: customText(
                         text: "Skip",

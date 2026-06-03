@@ -50,17 +50,12 @@ class ForgotSetPassword extends GetView<AuthController> {
                   fontSize: 15.sp,
                 ),
                 SizedBox(height: 3.h),
-                emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.forgotPassword),
+                emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.forgotPassword, controller: controller.passwordController),
                 SizedBox(height: 1.h),
-                emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.forgotConfirmPassword),
+                emailTextFeild("Confirm Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.forgotConfirmPassword, controller: controller.confirmPaswordController),
                 SizedBox(height: 4.h),
                 buttonWidget("Continue", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
-                  controller.isForgot.value= false;
-                  customDialog(context, containerClr: blueAppBarColor, title: "Your password has been updated successfully.", btnText: "Login to Continue", imgPath: "assets/png/check_icon.png", imageClr: whiteColor, btnTextClr: whiteColor, ontap: (){
-                    Get.offAllNamed("login");
-                  }, ontapCancel: (){
-                    Get.offAllNamed("login");
-                  });
+                  controller.resetPassword(context);
                 }),
                 SizedBox(height: 3.h),
                 Row(

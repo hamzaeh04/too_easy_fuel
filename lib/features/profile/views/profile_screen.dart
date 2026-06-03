@@ -9,6 +9,7 @@ import 'package:too_easy_fuel/features/orders/widget/order_detail_widget.dart';
 import 'package:too_easy_fuel/features/profile/controller/profile_controller.dart';
 import 'package:too_easy_fuel/features/setting/widgets/elevated_container.dart';
 import 'package:too_easy_fuel/features/setting/widgets/menu_widget.dart';
+import 'package:too_easy_fuel/utils/shared_prefrences_methods.dart';
 import 'package:too_easy_fuel/widgets/app_bar_widget.dart';
 import 'package:too_easy_fuel/widgets/background_widget.dart';
 import 'package:too_easy_fuel/widgets/button_widget.dart';
@@ -16,9 +17,11 @@ import 'package:too_easy_fuel/widgets/customText_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_dialog_widget.dart';
 
 import '../../../constants/color_constants.dart';
+import '../../../constants/local_db_key.dart';
 
 class ProfileScreen extends GetView<ProfileController> {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
+  final prefs = SharedPreferencesMethod.storage;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -79,6 +82,8 @@ class ProfileScreen extends GetView<ProfileController> {
                           // Get.offAllNamed("login");
                           customDialog(context, imgPath: "assets/png/home/alert_icon.png", containerClr: redSharpColor, title: "Are you sure you want to logout?", btnText: "Yes", isButton2: true, btnText2: "No", ontap: (){
                             Get.offAllNamed("login");
+                            prefs.clear();
+                            prefs.setBool(LocalDBKeys.FIRSTTIMEOPENAPP, true);
                             customDialog(context, title: "You’ve been logged out successfully.", ontap: (){
                               Get.back();
                             });

@@ -7,6 +7,7 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_text_feild.dart';
 
 import '../../../constants/color_constants.dart';
+import '../../../utils/utility.dart';
 import '../../../widgets/customText_widget.dart';
 
 class LoginScreen extends GetView<AuthController> {
@@ -49,7 +50,7 @@ class LoginScreen extends GetView<AuthController> {
                   fontSize: 15.sp,
                 ),
                 SizedBox(height: 3.h),
-                emailTextFeild("Full Name", "Enter your fullname","assets/png/auth_image/field-icons-user.png",controller,controller: controller.emailController,),
+                emailTextFeild("Full Name", "Enter your fullname","assets/png/auth_image/field-icons-user.png",controller,controller: controller.emailController, ),
                 SizedBox(height: 1.h),
                 emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.loginPassword,controller: controller.passwordController),
                 SizedBox(height: 2.h),
@@ -117,7 +118,12 @@ class LoginScreen extends GetView<AuthController> {
                 SizedBox(height: 4.h),
                 buttonWidget("Login", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
                   // Get.toNamed("helpsupport");
-                  controller.login();
+                  if (controller.emailController.text.trim().isNotEmpty &&
+                      controller.passwordController.text.trim().isNotEmpty) {
+                    controller.login();
+                  } else {
+                    Utils.showToast("Fill all the required fields", true);
+                  }
 
                 }),
                 SizedBox(height: 3.h),

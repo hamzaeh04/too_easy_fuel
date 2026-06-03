@@ -26,6 +26,7 @@ class AuthController extends GetxController{
   var isChecked2 = false.obs;
   var isForgot = false.obs;
   String email = "";
+  RxString resetToken = "".obs;
   RxInt remainingSeconds = 120.obs;
   Timer? _timer;
   final prefs = SharedPreferencesMethod.storage;
@@ -44,6 +45,10 @@ class AuthController extends GetxController{
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmPaswordController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
+
+  final TextEditingController forgotEmailController = TextEditingController();
+
+
   final ImagePicker _picker = ImagePicker();
   Rxn<File> profilePictureSignup = Rxn<File>();
 
@@ -345,10 +350,10 @@ class AuthController extends GetxController{
       }
 
       // 🔥 CASE 1: User NOT verified
-      if (data['isVerified'] == false) {
+      if (data["user"]['isEmailVerified'] == false) {
         Utils.showToast(response['message'], true);
 
-        Get.toNamed("verification", arguments: {
+        Get.toNamed("otp", arguments: {
           "email": data['email'],
         });
 
@@ -357,7 +362,7 @@ class AuthController extends GetxController{
 
       // 🔥 CASE 2: Verified user (normal login)
       final user = data['user'];
-      final token = data['accessToken'];
+      final token = data["tokens"]['accessToken'];
 
       if (user == null || token == null) {
         Utils.showToast('Invalid server response', true);
@@ -371,8 +376,7 @@ class AuthController extends GetxController{
       await prefs.setString(LocalDBKeys.USERID, user['id'] ?? "");
       await prefs.setString(LocalDBKeys.USERFULLNAME, user['fullname'] ?? "");
       await prefs.setString(LocalDBKeys.USEREMAIL, user['email'] ?? "");
-      await prefs.setString(LocalDBKeys.PHONENUMBER, user['phone'] ?? "");
-      await prefs.setString(LocalDBKeys.USERPROFILEPIC, user['profilePicture'] ?? "");
+      await prefs.setString(LocalDBKeys.USERPROFILEPIC, user['profileImage'] ?? "");
       await prefs.setString(LocalDBKeys.TOKEN, token);
       print("✅ User stored");
       print("✅ Token: $token");
@@ -464,6 +468,127 @@ class AuthController extends GetxController{
       Utils.showToast('Something went wrong: $e', true);
     }
   }
+  Future<void> ForgotPassword() async {
+    final body = {
+      'email': forgotEmailController.text.trim(),
+    };
+    try {
+      final response = await baseService.basePostAPI(
+        ApiEndPoints.forgotPassword,
+        body,
+        loading: true,
+      );
+      print(response);
+
+      if (response == null || response == false) {
+        Utils.showToast('Check Internet Connection', true);
+        return;
+      }
+
+      final int statusCode = response['statusCode'] ?? 0;
+      final String message = response['message'] ?? '';
+
+      print("Status Code: $statusCode");
+      print("Message: $message");
+
+      if (statusCode >= 200 && statusCode < 300) {
+        Utils.showToast(
+          message.isNotEmpty ? message : 'OTP sent successfully',
+          false,
+        );
+        startTimer();
+        Get.toNamed("otp");
+      } else {
+        Utils.showToast(
+          message.isNotEmpty ? message : 'OTP not sent',
+          true,
+        );
+      }
+    } catch (e, stackTrace) {
+      Utils.showToast('Something went wrong: $e', true);
+    }
+  }
+  Future<void> verifyForgotOtp() async {
+    final body = {
+      'email': forgotEmailController.text.trim(),
+      "otp": otpController.text.trim(),
+      "type": "forgot_password"
+    };
+
+    print("Forgot password flag = ${forgotPassword.value}");
+
+    try {
+      var response = await baseService.basePostAPI(
+        ApiEndPoints.verifyForgotOtp,
+        body,
+        loading: true,
+      );
+
+      if (response == false || response == null) {
+        Utils.showToast('Check Internet Connection', true);
+        return;
+      }
+
+      final int statusCode = response['statusCode'] ?? 0;
+      resetToken.value = response['data']['resetToken'];
+      print(resetToken.value);
+
+      if (statusCode >= 200 && statusCode < 300) {
+        Utils.showToast(response['message'] ?? 'OTP Verified Successfully', false);
+        Get.offNamed("forgotsetpassword");
+      } else {
+        Utils.showToast(
+          response["message"] ?? 'OTP not sent',
+          true,
+        );
+      }
+
+    } catch (e) {
+      Utils.showToast('Something went wrong: $e', true);
+    }
+  }
+  Future<void> resetPassword(BuildContext context) async {
+    final body = {
+      "resetToken": resetToken.value,
+      "newPassword": passwordController.text.trim(),
+      "confirmPassword": confirmPaswordController.text.trim()
+    };
+    print(body);
+    try {
+      var response = await baseService.basePostAPI(
+        ApiEndPoints.resetPassword,
+        body,
+        loading: true,
+      );
+
+      if (response == false || response == null) {
+        Utils.showToast('Check Internet Connection', true);
+        return;
+      }
+
+      final int statusCode = response['statusCode'] ?? 0;
+
+      if (statusCode >= 200 && statusCode < 300) {
+        Utils.showToast(response['message'] ?? 'Password reset successfully', false);
+        isForgot.value= false;
+        customDialog(context, containerClr: blueAppBarColor, title: "Your password has been updated successfully.", btnText: "Login to Continue", imgPath: "assets/png/check_icon.png", imageClr: whiteColor, btnTextClr: whiteColor, ontap: (){
+          Get.offAllNamed("login");
+        }, ontapCancel: (){
+          Get.offAllNamed("login");
+        });
+        clearForgotPasswordFields();
+      } else {
+        Utils.showToast(
+          response["message"] ?? 'Password not reset',
+          true,
+        );
+      }
+
+    } catch (e) {
+      Utils.showToast('Something went wrong: $e', true);
+    }
+  }
+
 
   clearAllSignUpFeilds(){
     fullNameController.clear();
@@ -473,5 +598,11 @@ class AuthController extends GetxController{
     otpController.clear();
   }
 
+  clearForgotPasswordFields(){
+    forgotEmailController.clear();
+    otpController.clear();
+    passwordController.clear();
+    confirmPaswordController.clear();
+  }
 }
 
