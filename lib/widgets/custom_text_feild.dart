@@ -178,6 +178,65 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
 
 }
 Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure, Widget? suffix, VoidCallback? onSuffixTap, TextEditingController? controller}){
+  Widget buildTextField({bool obscured = false, Widget? suffixIconWidget}) {
+    return TextField(
+      controller: controller,
+      obscureText: obscured,
+      style: TextStyle(
+        color: blackColor,
+        fontFamily: "inter",
+      ),
+      decoration: InputDecoration(
+        filled: true, // 🔥 IMPORTANT
+        fillColor: Colors.white, //
+        isDense: true,
+        hintText: hinttext,
+
+        hintStyle: TextStyle(
+            color: darkGreyColor,
+            fontFamily: "inter",
+            fontSize: 15.sp),
+
+        contentPadding: EdgeInsets.symmetric(
+            vertical: 1.5.h,
+            horizontal: 4.w
+        ),
+
+        /// 🔹 PREFIX IMAGE + DIVIDER\
+        prefixIcon: path != null ? Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(width: 4.w),
+            Image.asset(path ?? "", width: 6.w, height: 5.w),
+
+            SizedBox(width: 2.w),
+          ],
+        ): null,
+
+        suffixIconConstraints: BoxConstraints(
+          minHeight: 4.3.h,
+          minWidth: 4.3.h,
+        ),
+
+        suffixIcon: suffixIconWidget,
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.sp),
+          borderSide: BorderSide(
+            color: borderGreyColor,
+            width: 0.15.h,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(24.sp),
+          borderSide: BorderSide(
+            color: borderGreyColor,
+            width: 0.2.h,
+          ),
+        ),
+      ),
+    );
+  }
+
   return Column(
     children: [
       Row(
@@ -199,86 +258,45 @@ Widget customTextField(String title, String hinttext, {String? path, bool? isPas
         ],
       ),
       SizedBox(height: 0.5.h,),
-      TextField(
-        controller: controller,
-        style: TextStyle(
-          color: blackColor,
-          fontFamily: "inter",
-        ),
-        decoration: InputDecoration(
-          filled: true, // 🔥 IMPORTANT
-          fillColor: Colors.white, //
-          isDense: true,
-          hintText: hinttext,
-
-          hintStyle: TextStyle(
-              color: darkGreyColor,
-              fontFamily: "inter",
-              fontSize: 15.sp),
-
-          contentPadding: EdgeInsets.symmetric(
-              vertical: 1.5.h,
-              horizontal: 4.w
-          ),
-
-          /// 🔹 PREFIX IMAGE + DIVIDER\
-          prefixIcon: path != null ? Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(width: 4.w),
-              Image.asset(path ?? "", width: 6.w, height: 5.w),
-
-              SizedBox(width: 2.w),
-            ],
-          ): null,
-
-          suffixIconConstraints: BoxConstraints(
-            minHeight: 4.3.h,
-            minWidth: 4.3.h,
-          ),
-
-
-          suffixIcon: suffix != null
-              ? InkWell(
-            onTap: onSuffixTap,
-            child: Padding(
-              padding: EdgeInsets.only(right: 4.w),
-              child: suffix, // 👈 your custom icon
+      isPass == true
+          ? Obx(() => buildTextField(
+                obscured: isObscure.value,
+                suffixIconWidget: suffix != null
+                    ? InkWell(
+                  onTap: onSuffixTap,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 4.w),
+                    child: suffix,
+                  ),
+                )
+                    : GestureDetector(
+                  onTap: () {
+                    isObscure.toggle();
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 4.w),
+                    child: Image.asset(
+                      isObscure.value
+                          ? "assets/png/auth_image/field-icons-close-eye.png"
+                          : "assets/png/auth_image/open-eye.png",
+                      width: 4.w,
+                      height: 4.w,
+                    ),
+                  ),
+                ),
+              ))
+          : buildTextField(
+              obscured: false,
+              suffixIconWidget: suffix != null
+                  ? InkWell(
+                onTap: onSuffixTap,
+                child: Padding(
+                  padding: EdgeInsets.only(right: 4.w),
+                  child: suffix,
+                ),
+              )
+                  : null,
             ),
-          )
-              : isPass == true
-              ? GestureDetector(
-            onTap: () {
-              isObscure.toggle(); // 👈 toggle
-            },
-            child: Padding(
-              padding: EdgeInsets.only(right: 4.w),
-              child: Obx(() => Image.asset(
-                isObscure.value
-                    ? "assets/png/auth_image/field-icons-close-eye.png"
-                    : "assets/png/auth_image/open-eye.png",
-                width: 4.w,
-                height: 4.w,
-              )),
-            ),
-          )
-              : null,
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24.sp),
-            borderSide: BorderSide(
-              color: borderGreyColor,
-              width: 0.15.h,
-            ),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24.sp),
-            borderSide: BorderSide(
-              color: borderGreyColor,
-              width: 0.2.h,
-            ),
-          ),
-        ),
-      ),
     ],
   );
 }

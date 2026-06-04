@@ -17,6 +17,7 @@ import 'package:too_easy_fuel/widgets/custom_dialog_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_text_feild.dart';
 
 import '../../../constants/color_constants.dart';
+import '../../../utils/utility.dart';
 
 class ChangePasswordScreen extends GetView<ProfileController> {
   const ChangePasswordScreen({super.key});
@@ -28,7 +29,7 @@ class ChangePasswordScreen extends GetView<ProfileController> {
         child: Column(
           children: [
             // appBar("My Account", isBack: false,),
-            appBar("Change Password",),
+            appBar("Change Password"),
             SizedBox(height: 3.h,),
             /// Toggle Widget
             Expanded(child: SingleChildScrollView(
@@ -36,17 +37,44 @@ class ChangePasswordScreen extends GetView<ProfileController> {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Column(
                   children: [
-                    customTextField("Current Password", "Enter password", path: "assets/png/auth_image/field-icons-password.png", isPass: true, isObscure: controller.isObscure),
+                    customTextField("Current Password", "Enter password", path: "assets/png/auth_image/field-icons-password.png", isPass: true, isObscure: controller.isCurrentPasswordObscure,controller: controller.oldPasswordController),
                     SizedBox(height: 1.25.h,),
-                    customTextField("New Password", "Enter New Password", path: "assets/png/auth_image/field-icons-password.png", isPass: true, isObscure: controller.isObscure),
+                    customTextField("New Password", "Enter New Password", path: "assets/png/auth_image/field-icons-password.png", isPass: true, isObscure: controller.isNewPasswordObscure,controller: controller.newPasswordController),
                     SizedBox(height: 1.25.h,),
-                    customTextField("Confirm Password", "Enter Confirm New Password", path: "assets/png/auth_image/field-icons-password.png", isPass: true, isObscure: controller.isObscure),
+                    customTextField("Confirm Password", "Enter Confirm New Password", path: "assets/png/auth_image/field-icons-password.png", isPass: true, isObscure: controller.isConfirmPasswordObscure,controller: controller.confirmPasswordController),
                     SizedBox(height: 3.5.h,),
-                    buttonWidget("Update", whiteColor, isGradient: true, onTap: (){
-                      customDialog(context, containerClr: blueColor, title: "Password has been updated successfully", ontap: (){
-                        Get.toNamed("profile");
-                      });
-                    })
+                    buttonWidget(
+                      "Update",
+                      whiteColor,
+                      isGradient: true,
+                      onTap: () {
+                        if (controller.oldPasswordController.text.trim().isEmpty) {
+                          Utils.showToast("Please enter current password", true);
+                          return;
+                        }
+
+                        if (controller.newPasswordController.text.trim().isEmpty) {
+                          Utils.showToast("Please enter new password", true);
+                          return;
+                        }
+
+                        if (controller.confirmPasswordController.text.trim().isEmpty) {
+                          Utils.showToast("Please enter confirm password", true);
+                          return;
+                        }
+
+                        if (controller.newPasswordController.text.trim() !=
+                            controller.confirmPasswordController.text.trim()) {
+                          Utils.showToast(
+                            "New password and confirm password do not match",
+                            true,
+                          );
+                          return;
+                        }
+
+                        controller.updatePassword(context);
+                      },
+                    )
                   ],
                 ),
               ),
