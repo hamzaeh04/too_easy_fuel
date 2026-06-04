@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
+import 'package:too_easy_fuel/core/services/base_services.dart';
 import 'package:too_easy_fuel/features/fleet/controller/fleet_controller.dart';
 import 'package:too_easy_fuel/features/navbar/controller/navbar_controller.dart';
 import 'package:too_easy_fuel/features/setting/widgets/elevated_container.dart';
@@ -13,8 +14,11 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 
 import '../../../widgets/custom_dialog_widget.dart';
 
-void showAddVehicleBottomSheet(BuildContext context) {
+void showAddVehicleBottomSheet(BuildContext context, {bool? isEdit = false, String? vehicleImage, String? licenseImage, String? vehicleId}) {
   final FleetController fleetController = Get.find<FleetController>();
+  BaseService baseService = BaseService();
+  final RxnString rxVehicleImage = RxnString(vehicleImage);
+  final RxnString rxLicenseImage = RxnString(licenseImage);
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -41,6 +45,7 @@ void showAddVehicleBottomSheet(BuildContext context) {
                       onTap: (){
                         Get.back();
                         print("back");
+                        fleetController.clearVehicleFields();
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 3.5.w),
@@ -72,42 +77,42 @@ void showAddVehicleBottomSheet(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Search bar
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                          decoration: BoxDecoration(
-                              color: greyColor.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(16.sp),
-                              border: Border.all(color: greyColor.withValues(alpha: 0.2))
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: whiteColor,
-                                borderRadius: BorderRadius.circular(20.sp),
-                                border: Border.all(color: greyColor.withValues(alpha: 0.25))
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 0.h),
-                            child: Row(
-                              children: [
-                                Icon(Icons.search, color: greyColor, size: 18.sp),
-                                SizedBox(width: 2.w),
-                                Expanded(
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Search",
-                                      hintStyle: TextStyle(
-                                        color: greyColor,
-                                        fontFamily: "inter",
-                                        fontSize: 15.sp,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 2.h),
+                        // Container(
+                        //   padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                        //   decoration: BoxDecoration(
+                        //       color: greyColor.withValues(alpha: 0.15),
+                        //       borderRadius: BorderRadius.circular(16.sp),
+                        //       border: Border.all(color: greyColor.withValues(alpha: 0.2))
+                        //   ),
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //         color: whiteColor,
+                        //         borderRadius: BorderRadius.circular(20.sp),
+                        //         border: Border.all(color: greyColor.withValues(alpha: 0.25))
+                        //     ),
+                        //     padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 0.h),
+                        //     child: Row(
+                        //       children: [
+                        //         Icon(Icons.search, color: greyColor, size: 18.sp),
+                        //         SizedBox(width: 2.w),
+                        //         Expanded(
+                        //           child: TextField(
+                        //             decoration: InputDecoration(
+                        //               border: InputBorder.none,
+                        //               hintText: "Search",
+                        //               hintStyle: TextStyle(
+                        //                 color: greyColor,
+                        //                 fontFamily: "inter",
+                        //                 fontSize: 15.sp,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(height: 2.h),
                         Row(
                           children: [
                             customText(
@@ -149,9 +154,30 @@ void showAddVehicleBottomSheet(BuildContext context) {
                                   ),
                                   child: Obx(() {
                                     final file = fleetController.imageFile.value;
-                                
-                                    return file == null
-                                        ? Center(
+                                    if (file != null) {
+                                      return ClipRRect(
+                                        borderRadius: BorderRadius.circular(18.sp),
+                                        child: Image.file(
+                                          File(file.path),
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: 15.h,
+                                        ),
+                                      );
+                                    }
+
+                                    if (isEdit! && rxVehicleImage.value != null && rxVehicleImage.value!.isNotEmpty) {
+                                      return ClipRRect(
+                                        borderRadius: BorderRadius.circular(18.sp),
+                                        child: Image.network(
+                                          "${baseService.baseURL}${rxVehicleImage.value}",
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: 15.h,
+                                        ),
+                                      );
+                                    }
+                                    return Center(
                                       child: Container(
                                         height: 5.h,
                                         width: 5.h,
@@ -165,34 +191,37 @@ void showAddVehicleBottomSheet(BuildContext context) {
                                           size: 18.sp,
                                         ),
                                       ),
-                                    )
-                                        : ClipRRect(
-                                      borderRadius: BorderRadius.circular(18.sp),
-                                      child: Image.file(
-                                        File(file.path),
-                                        fit: BoxFit.cover,
-                                        width: double.infinity,
-                                        height: 15.h,
-                                      ),
                                     );
                                   }),
                                 ),
                               ),
 
                               Positioned(
-                                  top: 0.9.h,
-                                  right: 3.w,
-                                  child: InkWell(
-                                      onTap: (){
-                                        fleetController.clearImage();
-                                      },
-                                      child: Obx((){
-                                        final file = fleetController.imageFile.value;
+                                top: 0.9.h,
+                                right: 3.w,
+                                child: InkWell(
+                                  onTap: () {
+                                    fleetController.imageFile.value = null;
+                                    rxVehicleImage.value = null;
+                                  },
+                                  child: Obx(() {
+                                    final file = fleetController.imageFile.value;
 
-                                        return file == null ?
-                                        SizedBox.shrink():
-                                        Icon(Icons.delete, color: redColor,);
-                                      })))
+                                    final showDelete =
+                                        file != null ||
+                                            (isEdit! &&
+                                                rxVehicleImage.value != null &&
+                                                rxVehicleImage.value.toString().isNotEmpty);
+
+                                    return showDelete
+                                        ? Icon(
+                                      Icons.delete,
+                                      color: redColor,
+                                    )
+                                        : const SizedBox.shrink();
+                                  }),
+                                ),
+                              )
                             ],
                           ),
                         SizedBox(height: 2.h),
@@ -217,29 +246,64 @@ void showAddVehicleBottomSheet(BuildContext context) {
                         Stack(
                           children: [
                             InkWell(
-                              onTap: (){
-                                fleetController.pickImage();
+                              onTap: () {
+                                fleetController.pickImage(isSecond: true);
                               },
                               child: Container(
                                 height: 15.h,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                    color: whiteColor,
-                                    borderRadius: BorderRadius.circular(18.sp),
-                                    border: Border.all(color: greyColor.withValues(alpha: 0.45)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: blackColor.withOpacity(0.04),
-                                        blurRadius: 10,
-                                        offset: Offset(0, 4),
-                                      ),
-                                    ]
+                                  color: whiteColor,
+                                  borderRadius: BorderRadius.circular(18.sp),
+                                  border: Border.all(
+                                    color: greyColor.withValues(alpha: 0.45),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: blackColor.withOpacity(0.04),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
                                 ),
                                 child: Obx(() {
                                   final file = fleetController.imageFile2.value;
 
-                                  return file == null
-                                      ? Center(
+                                  // Show selected local image first
+                                  if (file != null) {
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(18.sp),
+                                      child: Image.file(
+                                        File(file.path),
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: 15.h,
+                                      ),
+                                    );
+                                  }
+
+                                  // Show existing image in edit mode
+                                  if (isEdit! &&
+                                      rxLicenseImage.value != null &&
+                                      rxLicenseImage.value.toString().isNotEmpty) {
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(18.sp),
+                                      child: Image.network(
+                                        "${baseService.baseURL}${rxLicenseImage.value}",
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: 15.h,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return const Center(
+                                            child: Text("Failed to load image"),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+
+                                  // Default camera icon
+                                  return Center(
                                     child: Container(
                                       height: 5.h,
                                       width: 5.h,
@@ -253,34 +317,36 @@ void showAddVehicleBottomSheet(BuildContext context) {
                                         size: 18.sp,
                                       ),
                                     ),
-                                  )
-                                      : ClipRRect(
-                                    borderRadius: BorderRadius.circular(18.sp),
-                                    child: Image.file(
-                                      File(file.path),
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: 15.h,
-                                    ),
                                   );
                                 }),
                               ),
                             ),
 
                             Positioned(
-                                top: 0.9.h,
-                                right: 3.w,
-                                child: InkWell(
-                                    onTap: (){
-                                      fleetController.clearImage();
-                                    },
-                                    child: Obx((){
-                                      final file = fleetController.imageFile2.value;
+                              top: 0.9.h,
+                              right: 3.w,
+                              child: InkWell(
+                                onTap: () {
+                                  fleetController.imageFile2.value = null;
+                                  rxLicenseImage.value = null;
+                                },
+                                child: Obx(() {
+                                  final file = fleetController.imageFile2.value;
 
-                                      return file == null ?
-                                      SizedBox.shrink():
-                                      Icon(Icons.delete, color: redColor,);
-                                    })))
+                                  final showDelete = file != null ||
+                                      (isEdit! &&
+                                          rxLicenseImage.value != null &&
+                                          rxLicenseImage.value.toString().isNotEmpty);
+
+                                  return showDelete
+                                      ? Icon(
+                                    Icons.delete,
+                                    color: redColor,
+                                  )
+                                      : const SizedBox.shrink();
+                                }),
+                              ),
+                            ),
                           ],
                         ),
                         SizedBox(height: 2.h),
@@ -294,8 +360,8 @@ void showAddVehicleBottomSheet(BuildContext context) {
                         SizedBox(height: 2.h),
                         customTextField(controller: fleetController.portController, "Port (Gallons)", "Right, Left", isObscure: false.obs,),
                         SizedBox(height: 4.h),
-                        buttonWidget("Add Vehicle", whiteColor, isGradient: true, onTap: (){
-                          fleetController.addVehicle(
+                        buttonWidget(isEdit == false ? "Add Vehicle": "Update Vehicle", whiteColor, isGradient: true, onTap: (){
+                          isEdit == false ? fleetController.addVehicle(
                             vehicleImage: fleetController.imageFile.value != null
                                 ? File(fleetController.imageFile.value!.path)
                                 : null,
@@ -303,6 +369,17 @@ void showAddVehicleBottomSheet(BuildContext context) {
                                 ? File(fleetController.imageFile2.value!.path)
                                 : null,
                             context: context
+                          ): fleetController.updateVehicle(
+                            vehicleId: vehicleId,
+                            vehicleImage: fleetController.imageFile.value != null
+                                ? File(fleetController.imageFile.value!.path)
+                                : rxVehicleImage.value, // existing string path
+
+                            licensePlateImage: fleetController.imageFile2.value != null
+                                ? File(fleetController.imageFile2.value!.path)
+                                : rxLicenseImage.value, // existing string path
+
+                            context: context,
                           );
                           // customDialog(context, title: "Vehicle added successfully!", btnText: "Ok", ontap: () => Get.until((route) => route.isFirst), ontapCancel: ()=> Get.until((route) => route.isFirst));
 
@@ -319,7 +396,8 @@ void showAddVehicleBottomSheet(BuildContext context) {
               child: InkWell(
                   onTap: () {
                     Get.back();
-                    fleetController.clearAllImage();
+                    fleetController.clearVehicleFields();
+
                   },
                 child: Icon(Icons.cancel_outlined, size: 21.sp,)
             ),)

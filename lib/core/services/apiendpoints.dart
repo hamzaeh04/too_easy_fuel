@@ -25,4 +25,12 @@ class ApiEndPoints{
     return "/fleet/equipment/${equipmentId}";
   }
 
+  static String updateVehicle (String vehicleId){
+    return "/fleet/vehicles/${vehicleId}";
+  }
+
+  static String updateEquipment (String equipmentId){
+    return "/fleet/equipment/${equipmentId}";
+  }
+
 }

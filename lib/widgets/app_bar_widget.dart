@@ -5,7 +5,7 @@ import 'package:sizer/sizer.dart';
 import '../constants/color_constants.dart';
 import 'customText_widget.dart';
 
-Widget appBar(String title, {bool? isBack = true, double? height, double? padding, bool? isHome = false}){
+Widget appBar(String title, {bool? isBack = true, double? height, double? padding, bool? isHome = false, bool? isSearch = true}){
   return Container(
     height: height ?? 15.h,
     width: double.infinity,
@@ -59,6 +59,7 @@ Widget appBar(String title, {bool? isBack = true, double? height, double? paddin
           // SizedBox(width: 8.w,),
           Spacer(),
 
+          if(isSearch == true)
           InkWell(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 3.w),

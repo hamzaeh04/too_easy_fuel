@@ -28,7 +28,7 @@ class FleetScreen extends GetView<FleetController> {
       body: radialBackground(
         child: Column(
           children: [
-            appBar("My Fleet", isBack: false),
+            appBar("My Fleet", isBack: false, isSearch: false),
             SizedBox(height: 3.h,),
             /// Toggle Widget
             Expanded(child: SingleChildScrollView(
@@ -40,9 +40,10 @@ class FleetScreen extends GetView<FleetController> {
                     children: [
                       SizedBox(
                         width: 23.w,
-                          child: buttonWidget("See All", blueColor, colors: whiteColor, onTap: (){
+                          child: buttonWidget("See All", isShadow: true, blueColor, colors: whiteColor, onTap: (){
                             Get.toNamed("seeVehicle");
-                          })),
+                          })
+                      ),
                       SizedBox(width: 2.w,),
                       Expanded(child: buttonWidget("+ Add Vehicle", whiteColor, isGradient: true, onTap: (){
                         showAddVehicleBottomSheet(context);
@@ -89,6 +90,12 @@ class FleetScreen extends GetView<FleetController> {
                             controller: controller,
                             vehicalId: data.id,
                             vehical: true,
+                            context: context,
+                            model: data.model,
+                            fuelType: data.fuelType,
+                            tankSize: data.tankSize.toString(),
+                            vehicleImagePath: data.vehicleImage,
+                            licenseImagePath: data.licensePlateImage,
                           ),
                         );
                       },
@@ -106,7 +113,7 @@ class FleetScreen extends GetView<FleetController> {
                     children: [
                       SizedBox(
                           width: 23.w,
-                          child: buttonWidget("See All", blueColor, colors: whiteColor, onTap: (){
+                          child: buttonWidget("See All", isShadow: true, blueColor, colors: whiteColor, onTap: (){
                             Get.toNamed("seeEquipments");
                           })),
                       SizedBox(width: 2.w,),
@@ -151,7 +158,12 @@ class FleetScreen extends GetView<FleetController> {
                             "Fuel: ${data.fuelType ?? ''}   Tank: ${data.tankSize ?? ''} gal",
                             port: "Port: ${data.port ?? ''}",
                               controller: controller,
-                            equipmentId: data.id
+                            equipmentId: data.id,
+                            context: context,
+                            model: data.model,
+                            fuelType: data.fuelType,
+                            tankSize: data.tankSize.toString(),
+                            vehicleImagePath: data.equipmentImage,
                           ),
                         );
                       },

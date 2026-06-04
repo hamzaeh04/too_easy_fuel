@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
+import 'package:too_easy_fuel/core/services/base_services.dart';
 import 'package:too_easy_fuel/features/fleet/controller/fleet_controller.dart';
 import 'package:too_easy_fuel/features/navbar/controller/navbar_controller.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
@@ -13,8 +14,10 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 
 import '../../fleet/controller/fleet_controller.dart';
 
-void showAddEquipmentBottomSheet(BuildContext context) {
+void showAddEquipmentBottomSheet(BuildContext context, {bool? isEdit = false, String? equipmentImage, String? equipmentId}) {
   final FleetController fleetController = Get.find<FleetController>();
+  BaseService baseService = BaseService();
+  final RxnString rxEquipmentImage = RxnString(equipmentImage);
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -41,6 +44,7 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                       onTap: (){
                         Get.back();
                         print("back");
+                        fleetController.clearVehicleFields();
                       },
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 3.5.w),
@@ -72,42 +76,42 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         // Search bar
-                        Container(
-                          padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                          decoration: BoxDecoration(
-                              color: greyColor.withValues(alpha: 0.15),
-                              borderRadius: BorderRadius.circular(16.sp),
-                              border: Border.all(color: greyColor.withValues(alpha: 0.2))
-                          ),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: whiteColor,
-                                borderRadius: BorderRadius.circular(20.sp),
-                                border: Border.all(color: greyColor.withValues(alpha: 0.25))
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 0.h),
-                            child: Row(
-                              children: [
-                                Icon(Icons.search, color: greyColor, size: 18.sp),
-                                SizedBox(width: 2.w),
-                                Expanded(
-                                  child: TextField(
-                                    decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "Search",
-                                      hintStyle: TextStyle(
-                                        color: greyColor,
-                                        fontFamily: "inter",
-                                        fontSize: 15.sp,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 2.h),
+                        // Container(
+                        //   padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                        //   decoration: BoxDecoration(
+                        //       color: greyColor.withValues(alpha: 0.15),
+                        //       borderRadius: BorderRadius.circular(16.sp),
+                        //       border: Border.all(color: greyColor.withValues(alpha: 0.2))
+                        //   ),
+                        //   child: Container(
+                        //     decoration: BoxDecoration(
+                        //         color: whiteColor,
+                        //         borderRadius: BorderRadius.circular(20.sp),
+                        //         border: Border.all(color: greyColor.withValues(alpha: 0.25))
+                        //     ),
+                        //     padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 0.h),
+                        //     child: Row(
+                        //       children: [
+                        //         Icon(Icons.search, color: greyColor, size: 18.sp),
+                        //         SizedBox(width: 2.w),
+                        //         Expanded(
+                        //           child: TextField(
+                        //             decoration: InputDecoration(
+                        //               border: InputBorder.none,
+                        //               hintText: "Search",
+                        //               hintStyle: TextStyle(
+                        //                 color: greyColor,
+                        //                 fontFamily: "inter",
+                        //                 fontSize: 15.sp,
+                        //               ),
+                        //             ),
+                        //           ),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
+                        // SizedBox(height: 2.h),
                         Row(
                           children: [
                             customText(
@@ -129,29 +133,64 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                         Stack(
                           children: [
                             InkWell(
-                              onTap: (){
+                              onTap: () {
                                 fleetController.pickImage();
                               },
                               child: Container(
                                 height: 15.h,
                                 width: double.infinity,
                                 decoration: BoxDecoration(
-                                    color: whiteColor,
-                                    borderRadius: BorderRadius.circular(18.sp),
-                                    border: Border.all(color: greyColor.withValues(alpha: 0.45)),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: blackColor.withOpacity(0.04),
-                                        blurRadius: 10,
-                                        offset: Offset(0, 4),
-                                      ),
-                                    ]
+                                  color: whiteColor,
+                                  borderRadius: BorderRadius.circular(18.sp),
+                                  border: Border.all(
+                                    color: greyColor.withValues(alpha: 0.45),
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: blackColor.withOpacity(0.04),
+                                      blurRadius: 10,
+                                      offset: const Offset(0, 4),
+                                    ),
+                                  ],
                                 ),
                                 child: Obx(() {
                                   final file = fleetController.imageFile.value;
 
-                                  return file == null
-                                      ? Center(
+                                  // Show newly selected image
+                                  if (file != null) {
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(18.sp),
+                                      child: Image.file(
+                                        File(file.path),
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: 15.h,
+                                      ),
+                                    );
+                                  }
+
+                                  // Show existing image in edit mode
+                                  if (isEdit == true &&
+                                      rxEquipmentImage.value != null &&
+                                      rxEquipmentImage.value!.isNotEmpty) {
+                                    return ClipRRect(
+                                      borderRadius: BorderRadius.circular(18.sp),
+                                      child: Image.network(
+                                        "${baseService.baseURL}${rxEquipmentImage.value}",
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                        height: 15.h,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return const Center(
+                                            child: Text("Failed to load image"),
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+
+                                  // Default camera icon
+                                  return Center(
                                     child: Container(
                                       height: 5.h,
                                       width: 5.h,
@@ -165,34 +204,36 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                                         size: 18.sp,
                                       ),
                                     ),
-                                  )
-                                      : ClipRRect(
-                                    borderRadius: BorderRadius.circular(18.sp),
-                                    child: Image.file(
-                                      File(file.path),
-                                      fit: BoxFit.cover,
-                                      width: double.infinity,
-                                      height: 15.h,
-                                    ),
                                   );
                                 }),
                               ),
                             ),
 
                             Positioned(
-                                top: 0.9.h,
-                                right: 3.w,
-                                child: InkWell(
-                                    onTap: (){
-                                      fleetController.clearImage();
-                                    },
-                                    child: Obx((){
-                                      final file = fleetController.imageFile.value;
+                              top: 0.9.h,
+                              right: 3.w,
+                              child: InkWell(
+                                onTap: () {
+                                  fleetController.imageFile.value = null;
+                                  rxEquipmentImage.value = null;
+                                },
+                                child: Obx(() {
+                                  final file = fleetController.imageFile.value;
 
-                                      return file == null ?
-                                      SizedBox.shrink():
-                                      Icon(Icons.delete, color: redColor,);
-                                    })))
+                                  final showDelete = file != null ||
+                                      (isEdit == true &&
+                                          rxEquipmentImage.value != null &&
+                                          rxEquipmentImage.value!.isNotEmpty);
+
+                                  return showDelete
+                                      ? Icon(
+                                    Icons.delete,
+                                    color: redColor,
+                                  )
+                                      : const SizedBox.shrink();
+                                }),
+                              ),
+                            ),
                           ],
                         ),
 
@@ -205,12 +246,18 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                         SizedBox(height: 2.h),
                         customTextField(controller: fleetController.tankSizeController, "Tank Size (Gallons)", "Enter Size (e.g., 15, 20)", isObscure: false.obs,),
                         SizedBox(height: 4.h),
-                        buttonWidget("Add Equipment", whiteColor, isGradient: true, onTap: (){
-                          fleetController.addEquipment(
+                        buttonWidget(isEdit == false ? "Add Equipment" : "Update Equipment", whiteColor, isGradient: true, onTap: (){
+                          isEdit == false ? fleetController.addEquipment(
                               equipmentImage: fleetController.imageFile.value != null
                                   ? File(fleetController.imageFile.value!.path)
                                   : null,
                               context: context
+                          ): fleetController.updateEquipment(
+                            equipmentId: equipmentId,
+                            equipmentImage: fleetController.imageFile.value != null
+                                ? File(fleetController.imageFile.value!.path)
+                                : rxEquipmentImage.value, // existing string path
+                            context: context,
                           );
                         }),
                         SizedBox(height: 4.h),
@@ -226,6 +273,8 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                   onTap: () {
                     Get.back();
                     fleetController.clearImage();
+                    fleetController.clearVehicleFields();
+
                   },
                   child: Icon(Icons.cancel_outlined, size: 21.sp,)
               ),)

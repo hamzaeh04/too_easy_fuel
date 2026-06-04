@@ -16,7 +16,8 @@ Widget buttonWidget(
       Color? borderColor,
       double? fontsize,
       FontWeight? fontweight,
-      bool? isGradient
+      bool? isGradient,
+      bool? isShadow = false
     }) {
   return InkWell(
     onTap: onTap,
@@ -25,6 +26,16 @@ Widget buttonWidget(
       width: width ?? 100.w,
       decoration: BoxDecoration(
         color: colors,
+
+        boxShadow: [
+          if(isShadow == true)
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 0,
+            offset: const Offset(0, 6), // Shadow moves downward
+          ),
+        ],
         borderRadius: BorderRadius.circular(20.sp),
         border: borderColor != null
             ? Border.all(color: borderColor, width: 1.2)
