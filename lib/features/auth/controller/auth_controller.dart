@@ -374,7 +374,7 @@ class AuthController extends GetxController{
 
       await prefs.setString(LocalDBKeys.USERDETAIL, jsonEncode(user));
       await prefs.setString(LocalDBKeys.USERID, user['id'] ?? "");
-      await prefs.setString(LocalDBKeys.USERFULLNAME, user['fullname'] ?? "");
+      await prefs.setString(LocalDBKeys.USERFULLNAME, user['fullName'] ?? "");
       await prefs.setString(LocalDBKeys.USEREMAIL, user['email'] ?? "");
       await prefs.setString(LocalDBKeys.USERPROFILEPIC, user['profileImage'] ?? "");
       await prefs.setString(LocalDBKeys.TOKEN, token);

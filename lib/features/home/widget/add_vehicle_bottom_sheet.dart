@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
+import 'package:too_easy_fuel/features/fleet/controller/fleet_controller.dart';
 import 'package:too_easy_fuel/features/navbar/controller/navbar_controller.dart';
 import 'package:too_easy_fuel/features/setting/widgets/elevated_container.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
@@ -13,7 +14,7 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 import '../../../widgets/custom_dialog_widget.dart';
 
 void showAddVehicleBottomSheet(BuildContext context) {
-  final NavbarController navbarController = Get.find<NavbarController>();
+  final FleetController fleetController = Get.find<FleetController>();
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -129,7 +130,7 @@ void showAddVehicleBottomSheet(BuildContext context) {
                             children: [
                               InkWell(
                                 onTap: (){
-                                  navbarController.pickImage();
+                                  fleetController.pickImage();
                                 },
                                 child: Container(
                                   height: 15.h,
@@ -147,7 +148,7 @@ void showAddVehicleBottomSheet(BuildContext context) {
                                       ]
                                   ),
                                   child: Obx(() {
-                                    final file = navbarController.imageFile.value;
+                                    final file = fleetController.imageFile.value;
                                 
                                     return file == null
                                         ? Center(
@@ -183,10 +184,10 @@ void showAddVehicleBottomSheet(BuildContext context) {
                                   right: 3.w,
                                   child: InkWell(
                                       onTap: (){
-                                        navbarController.clearImage();
+                                        fleetController.clearImage();
                                       },
                                       child: Obx((){
-                                        final file = navbarController.imageFile.value;
+                                        final file = fleetController.imageFile.value;
 
                                         return file == null ?
                                         SizedBox.shrink():
@@ -217,7 +218,7 @@ void showAddVehicleBottomSheet(BuildContext context) {
                           children: [
                             InkWell(
                               onTap: (){
-                                navbarController.pickImage();
+                                fleetController.pickImage();
                               },
                               child: Container(
                                 height: 15.h,
@@ -235,7 +236,7 @@ void showAddVehicleBottomSheet(BuildContext context) {
                                     ]
                                 ),
                                 child: Obx(() {
-                                  final file = navbarController.imageFile2.value;
+                                  final file = fleetController.imageFile2.value;
 
                                   return file == null
                                       ? Center(
@@ -271,10 +272,10 @@ void showAddVehicleBottomSheet(BuildContext context) {
                                 right: 3.w,
                                 child: InkWell(
                                     onTap: (){
-                                      navbarController.clearImage();
+                                      fleetController.clearImage();
                                     },
                                     child: Obx((){
-                                      final file = navbarController.imageFile2.value;
+                                      final file = fleetController.imageFile2.value;
 
                                       return file == null ?
                                       SizedBox.shrink():
@@ -283,18 +284,27 @@ void showAddVehicleBottomSheet(BuildContext context) {
                           ],
                         ),
                         SizedBox(height: 2.h),
-                        customTextField("Make", "Enter Vehicle Make (e.g., Toyota, Ford)", isObscure: false.obs),
+                        customTextField(controller: fleetController.nameController, "Make", "Enter Vehicle Make (e.g., Toyota, Ford)", isObscure: false.obs),
                         SizedBox(height: 2.h),
-                        customTextField("Model", "Enter Vehicle Model (e.g., RAV4, F-150)", isObscure: false.obs),
+                        customTextField(controller: fleetController.modelController, "Model", "Enter Vehicle Model (e.g., RAV4, F-150)", isObscure: false.obs),
                         SizedBox(height: 2.h),
-                        customTextField("Fuel Type", "Enter Fuel Type (e.g., Gas, Diesel)", isObscure: false.obs),
+                        customTextField(controller: fleetController.fuelTypeController, "Fuel Type", "Enter Fuel Type (e.g., Gas, Diesel)", isObscure: false.obs),
                         SizedBox(height: 2.h),
-                        customTextField("Tank Size (Gallons)", "Enter Size (e.g., 15, 20)", isObscure: false.obs,),
+                        customTextField(controller: fleetController.tankSizeController, "Tank Size (Gallons)", "Enter Size (e.g., 15, 20)", isObscure: false.obs,),
                         SizedBox(height: 2.h),
-                        customTextField("Tank Size (Gallons)", "Right, Left", isObscure: false.obs,),
+                        customTextField(controller: fleetController.portController, "Port (Gallons)", "Right, Left", isObscure: false.obs,),
                         SizedBox(height: 4.h),
                         buttonWidget("Add Vehicle", whiteColor, isGradient: true, onTap: (){
-                          customDialog(context, title: "Vehicle added successfully!", btnText: "Ok", ontap: () => Get.until((route) => route.isFirst), ontapCancel: ()=> Get.until((route) => route.isFirst));
+                          fleetController.addVehicle(
+                            vehicleImage: fleetController.imageFile.value != null
+                                ? File(fleetController.imageFile.value!.path)
+                                : null,
+                            licensePlateImage: fleetController.imageFile2.value != null
+                                ? File(fleetController.imageFile2.value!.path)
+                                : null,
+                            context: context
+                          );
+                          // customDialog(context, title: "Vehicle added successfully!", btnText: "Ok", ontap: () => Get.until((route) => route.isFirst), ontapCancel: ()=> Get.until((route) => route.isFirst));
 
                         }),
                         SizedBox(height: 4.h),
@@ -309,7 +319,7 @@ void showAddVehicleBottomSheet(BuildContext context) {
               child: InkWell(
                   onTap: () {
                     Get.back();
-                    navbarController.clearAllImage();
+                    fleetController.clearAllImage();
                   },
                 child: Icon(Icons.cancel_outlined, size: 21.sp,)
             ),)

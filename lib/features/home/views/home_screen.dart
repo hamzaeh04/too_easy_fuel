@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:too_easy_fuel/constants/local_db_key.dart';
 import 'package:too_easy_fuel/features/home/controller/home_controller.dart';
 import 'package:too_easy_fuel/features/navbar/controller/navbar_controller.dart';
+import 'package:too_easy_fuel/utils/shared_prefrences_methods.dart';
 import 'package:too_easy_fuel/widgets/app_bar_widget.dart';
 import 'package:too_easy_fuel/widgets/background_widget.dart';
 import 'package:too_easy_fuel/features/setting/widgets/elevated_container.dart';
@@ -16,13 +18,15 @@ import '../widget/add_vehicle_bottom_sheet.dart';
 class HomeScreen extends GetView<HomeController> {
   HomeScreen({super.key});
   final NavbarController navbarController = Get.find<NavbarController>();
+  final prefs = SharedPreferencesMethod.storage;
   @override
   Widget build(BuildContext context) {
+    final name = prefs.getString(LocalDBKeys.USERFULLNAME) ?? "Name";
     return Scaffold(
       body: radialBackground(
         child: Column(
           children: [
-            appBar("Josh elbert", isHome: true),
+            appBar(name.split(' ').first, isHome: true),
             Expanded(
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),

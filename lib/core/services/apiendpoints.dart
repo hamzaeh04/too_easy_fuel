@@ -8,5 +8,8 @@ class ApiEndPoints{
   static const String forgotPassword = '/auth/forgot-password';
   static const String verifyForgotOtp = '/auth/verify-forgot-password-otp';
   static const String resetPassword = '/auth/reset-password';
+  static const String addVehicle = '/fleet/vehicles';
+  static const String addEquipment = '/fleet/equipment';
+  static const String getProfile = '/users/me';
 
 }

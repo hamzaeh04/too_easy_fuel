@@ -177,7 +177,7 @@ Widget emailTextFeild(String title,String hinttext,String path,AuthController au
   );
 
 }
-Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure, Widget? suffix, VoidCallback? onSuffixTap}){
+Widget customTextField(String title, String hinttext, {String? path, bool? isPass = false, required RxBool isObscure, Widget? suffix, VoidCallback? onSuffixTap, TextEditingController? controller}){
   return Column(
     children: [
       Row(
@@ -200,6 +200,7 @@ Widget customTextField(String title, String hinttext, {String? path, bool? isPas
       ),
       SizedBox(height: 0.5.h,),
       TextField(
+        controller: controller,
         style: TextStyle(
           color: blackColor,
           fontFamily: "inter",
