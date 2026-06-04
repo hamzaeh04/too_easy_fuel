@@ -18,7 +18,8 @@ class SeeEquipments extends GetView<FleetController> {
   const SeeEquipments({super.key});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    // Access the controller to trigger its lazy initialization when the screen is built
+    controller;
     return Scaffold(
       body: radialBackground(
         child: Column(
@@ -31,12 +32,39 @@ class SeeEquipments extends GetView<FleetController> {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Column(
                   children: [
-                    fleetItem(imgPath: "assets/png/fleet/equipment1.png", title: "John Deere Tractor", subTitle: "2026 | Gas | 5 Gal", detail: "Port: Right", port: "Last Fueled: 5 hours ago"),
-                    SizedBox(height: 1.25.h,),
-                    fleetItem(imgPath: "assets/png/fleet/equipment3.png",title: "Honda Push Mower", subTitle: "2026 | Gas | 0.25 Gal", detail: "Port: Right", port: "Last Fueled: 5 hours ago"),
-                    SizedBox(height: 1.25.h,),
-                    fleetItem(imgPath: "assets/png/fleet/equipment4.png", title: "Jerry Can", subTitle: "Gas | Spare Fuel", detail: "Port: Right", port: "Last Fueled: 5 hours ago"),
-                    SizedBox(height: 2.h,),
+                    Obx(() {
+                      final equipmentList = controller.equipmentResponse.value?.data ?? [];
+                      if (equipmentList.isEmpty) {
+                        return const Center(child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 2.0),
+                          child: Text("No equipment found"),
+                        ));
+                      }
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: equipmentList.length > 3 ? 3 : equipmentList.length,
+                        itemBuilder: (context, index) {
+                          final data = equipmentList[index];
+
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 1.25.h),
+                            child: fleetItem(
+                              imgPath: data.equipmentImage,
+                              title: "${data.equipmentType ?? ''} ${data.model ?? ''}".trim(),
+                              subTitle:
+                              "${data.equipmentType ?? ''} ${data.model ?? ''} (${data.year ?? ''})",
+                              detail:
+                              "Fuel: ${data.fuelType ?? ''}   Tank: ${data.tankSize ?? ''} gal",
+                              port: "Port: ${data.port ?? ''}",
+                                controller: controller,
+                              equipmentId: data.id
+                            ),
+                          );
+                        },
+                      );
+                    }),
 
                   ],),
               ),

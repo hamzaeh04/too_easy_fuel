@@ -150,7 +150,11 @@ class BaseService {
       // ---------- SUCCESS ----------
       if (response.statusCode >= 200 && response.statusCode < 300) {
         var jsonData = json.decode(response.body);
-        return {"success": true, ...jsonData};
+        return {
+          "success": true,
+          ...jsonData,
+          "statusCode": response.statusCode
+        };
       }
 
       // ---------- ERROR ----------
@@ -220,7 +224,11 @@ class BaseService {
       // ---------- SUCCESS ----------
       if (response.statusCode >= 200 && response.statusCode < 300) {
         var jsonData = json.decode(response.body);
-        return {"success": true, ...jsonData};
+        return {
+          "success": true,
+          ...jsonData,
+          "statusCode": response.statusCode
+        };
       }
 
       // ---------- ERROR ----------
@@ -290,7 +298,11 @@ class BaseService {
       // ---------- SUCCESS ----------
       if (response.statusCode >= 200 && response.statusCode < 300) {
         var jsonData = json.decode(response.body);
-        return {"success": true, ...jsonData};
+        return {
+          "success": true,
+          ...jsonData,
+          "statusCode": response.statusCode
+        };
       }
 
       // ---------- ERROR ----------
@@ -360,12 +372,20 @@ class BaseService {
         // Handle 204 No Content gracefully (response.body might be empty)
         if (response.body.isEmpty || response.statusCode == 204) {
           Utils.showToast("Deleted successfully", false);
-          return {"success": true, "message": "Deleted successfully"};
+          return {
+            "success": true,
+            "message": "Deleted successfully",
+            "statusCode": response.statusCode
+          };
         }
 
         var jsonData = json.decode(response.body);
         Utils.showToast(_parseMessage(jsonData["message"], defaultMessage: "Deleted successfully"), false);
-        return {"success": true, ...jsonData};
+        return {
+          "success": true,
+          ...jsonData,
+          "statusCode": response.statusCode
+        };
       }
 
       // ---------- ERROR ----------

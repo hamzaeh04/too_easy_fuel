@@ -20,7 +20,10 @@ class FleetScreen extends GetView<FleetController> {
   const FleetScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    });
+    // Access the controller to trigger its lazy initialization when the screen is built
+    controller;
     return Scaffold(
       body: radialBackground(
         child: Column(
@@ -48,12 +51,48 @@ class FleetScreen extends GetView<FleetController> {
                     ],
                   ),
                   SizedBox(height: 2.h,),
-                  fleetItem(imgPath: "assets/png/fleet/car1.png", title: "Suzuki Cultus", subTitle: "Suzuki Cultus (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
-                  SizedBox(height: 1.25.h,),
-                  fleetItem(imgPath: "assets/png/fleet/car2.png",title: "Honda City", subTitle: "Honda City (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
-                  SizedBox(height: 1.25.h,),
-                  fleetItem(imgPath: "assets/png/fleet/car3.png", title: "Toyota Corolla Cross", subTitle: "Toyota Corolla Cross (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
+                  Obx(() {
+                    final vehiclesList = controller.vehiclesResponse.value?.data ?? [];
+                    if (vehiclesList.isEmpty) {
+                      return const Center(child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2.0),
+                        child: Text("No vehicles found"),
+                      ));
+                    }
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: vehiclesList.length > 3 ? 3 : vehiclesList.length,
+                      itemBuilder: (context, index) {
+                        final data = vehiclesList[index];
+
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 1.25.h),
+                          child: fleetItem(
+                            imgPath: data.vehicleImage,
+                            title: "${data.make ?? ''} ${data.model ?? ''}".trim(),
+                            subTitle:
+                            "${data.make ?? ''} ${data.model ?? ''} (${data.year ?? ''})",
+                            detail:
+                            "Fuel: ${data.fuelType ?? ''}   Tank: ${data.tankSize ?? ''} gal",
+                            port: "Port: ${data.port ?? ''}",
+                            controller: controller,
+                            vehicalId: data.id,
+                            vehical: true,
+                          ),
+                        );
+                      },
+                    );
+                  }),
                   SizedBox(height: 2.h,),
+                  // SizedBox(height: 2.h,),
+                  // fleetItem(imgPath: "assets/png/fleet/car1.png", title: "Suzuki Cultus", subTitle: "Suzuki Cultus (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
+                  // SizedBox(height: 1.25.h,),
+                  // fleetItem(imgPath: "assets/png/fleet/car2.png",title: "Honda City", subTitle: "Honda City (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
+                  // SizedBox(height: 1.25.h,),
+                  // fleetItem(imgPath: "assets/png/fleet/car3.png", title: "Toyota Corolla Cross", subTitle: "Toyota Corolla Cross (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
+                  // SizedBox(height: 2.h,),
                   Row(
                     children: [
                       SizedBox(
@@ -68,12 +107,44 @@ class FleetScreen extends GetView<FleetController> {
                     ],
                   ),
                   SizedBox(height: 2.h,),
-                  fleetItem(imgPath: "assets/png/fleet/equipment1.png", title: "John Deere Tractor", subTitle: "Tesla Model 3 (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
-                  SizedBox(height: 1.25.h,),
-                  fleetItem(imgPath: "assets/png/fleet/equipment2.png",title: "Honda Push Mower", subTitle: "Tesla Model 3 (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
+                  Obx(() {
+                    final equipmentList = controller.equipmentResponse.value?.data ?? [];
+                    if (equipmentList.isEmpty) {
+                      return const Center(child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 2.0),
+                        child: Text("No equipment found"),
+                      ));
+                    }
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      padding: EdgeInsets.zero,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: equipmentList.length > 3 ? 3 : equipmentList.length,
+                      itemBuilder: (context, index) {
+                        final data = equipmentList[index];
+
+                        return Padding(
+                          padding: EdgeInsets.only(bottom: 1.25.h),
+                          child: fleetItem(
+                            imgPath: data.equipmentImage,
+                            title: "${data.equipmentType ?? ''} ${data.model ?? ''}".trim(),
+                            subTitle:
+                            "${data.equipmentType ?? ''} ${data.model ?? ''} (${data.year ?? ''})",
+                            detail:
+                            "Fuel: ${data.fuelType ?? ''}   Tank: ${data.tankSize ?? ''} gal",
+                            port: "Port: ${data.port ?? ''}",
+                              controller: controller,
+                            equipmentId: data.id
+                          ),
+                        );
+                      },
+                    );
+                  }),
+                  SizedBox(height: 5.h)
                 ],),
               ),
-            ))
+            )),
+
           ],
         ),
       ),

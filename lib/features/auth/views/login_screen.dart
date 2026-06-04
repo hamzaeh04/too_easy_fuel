@@ -7,7 +7,8 @@ import 'package:too_easy_fuel/widgets/button_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_text_feild.dart';
 
 import '../../../constants/color_constants.dart';
-import '../../../utils/utility.dart';
+import 'package:too_easy_fuel/utils/utility.dart';
+
 import '../../../widgets/customText_widget.dart';
 
 class LoginScreen extends GetView<AuthController> {
@@ -46,11 +47,11 @@ class LoginScreen extends GetView<AuthController> {
 
                 customText(
                   text:
-                  "Enter an email address to receive a verification code.",
+                  "Enter your email and password to log in.",
                   fontSize: 15.sp,
                 ),
                 SizedBox(height: 3.h),
-                emailTextFeild("Full Name", "Enter your fullname","assets/png/auth_image/field-icons-user.png",controller,controller: controller.emailController, ),
+                emailTextFeild("Email Address", "Enter email address","assets/png/auth_image/field-icons-email.png",controller,controller: controller.emailController, ),
                 SizedBox(height: 1.h),
                 emailTextFeild("Password", "Enter password","assets/png/auth_image/field-icons-password.png",controller,ispassword: true,isPasswordHidden: controller.loginPassword,controller: controller.passwordController),
                 SizedBox(height: 2.h),
@@ -117,12 +118,11 @@ class LoginScreen extends GetView<AuthController> {
                 ),
                 SizedBox(height: 4.h),
                 buttonWidget("Login", whiteColor,isGradient: true,height: 6.h,fontsize: 15.5.sp,onTap: (){
-                  // Get.toNamed("helpsupport");
                   if (controller.emailController.text.trim().isNotEmpty &&
                       controller.passwordController.text.trim().isNotEmpty) {
                     controller.login();
                   } else {
-                    Utils.showToast("Fill all the required fields", true);
+                    Utils.showToast("Please enter email and password", true);
                   }
 
                 }),

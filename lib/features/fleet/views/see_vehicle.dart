@@ -18,7 +18,8 @@ class SeeVehicle extends GetView<FleetController> {
   const SeeVehicle({super.key});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    // Access the controller to trigger its lazy initialization when the screen is built
+    controller;
     return Scaffold(
       body: radialBackground(
         child: Column(
@@ -31,12 +32,40 @@ class SeeVehicle extends GetView<FleetController> {
                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                 child: Column(
                   children: [
-                    fleetItem(imgPath: "assets/png/fleet/car1.png", title: "Suzuki Cultus", subTitle: "Suzuki Cultus (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
-                    SizedBox(height: 1.25.h,),
-                    fleetItem(imgPath: "assets/png/fleet/car2.png",title: "Honda City", subTitle: "Honda City (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
-                    SizedBox(height: 1.25.h,),
-                    fleetItem(imgPath: "assets/png/fleet/car3.png", title: "Toyota Corolla Cross", subTitle: "Toyota Corolla Cross (2023)", detail: "Fuel: Electric   Tank: 82 gal", port: "Port: left"),
-                    SizedBox(height: 2.h,),
+                    Obx(() {
+                      final vehiclesList = controller.vehiclesResponse.value?.data ?? [];
+                      if (vehiclesList.isEmpty) {
+                        return const Center(child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 2.0),
+                          child: Text("No vehicles found"),
+                        ));
+                      }
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        padding: EdgeInsets.zero,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: vehiclesList.length,
+                        itemBuilder: (context, index) {
+                          final data = vehiclesList[index];
+
+                          return Padding(
+                            padding: EdgeInsets.only(bottom: 1.25.h),
+                            child: fleetItem(
+                              imgPath: data.vehicleImage,
+                              title: "${data.make ?? ''} ${data.model ?? ''}".trim(),
+                              subTitle:
+                              "${data.make ?? ''} ${data.model ?? ''} (${data.year ?? ''})",
+                              detail:
+                              "Fuel: ${data.fuelType ?? ''}   Tank: ${data.tankSize ?? ''} gal",
+                              port: "Port: ${data.port ?? ''}",
+                                controller: controller,
+                              vehicalId: data.id,
+                              vehical: true,
+                            ),
+                          );
+                        },
+                      );
+                    }),
 
                   ],),
               ),

@@ -9,4 +9,17 @@ class ApiEndPoints{
   static const String verifyForgotOtp = '/auth/verify-forgot-password-otp';
   static const String resetPassword = '/auth/reset-password';
 
+
+
+  //Vehical
+  static const String getVehicles = '/fleet/vehicles?search=';
+  static const String getEquipment = '/fleet/equipment?search=';
+
+  static String delteVehical (String vehicalId){
+    return "/fleet/vehicles/${vehicalId}";
+  }
+  static String delteEquipment (String equipmentId){
+    return "/fleet/equipment/${equipmentId}";
+  }
+
 }
