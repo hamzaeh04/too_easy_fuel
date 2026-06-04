@@ -4,14 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/constants/color_constants.dart';
+import 'package:too_easy_fuel/features/fleet/controller/fleet_controller.dart';
 import 'package:too_easy_fuel/features/navbar/controller/navbar_controller.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_dialog_widget.dart';
 import 'package:too_easy_fuel/widgets/custom_text_feild.dart';
 import 'package:too_easy_fuel/widgets/button_widget.dart';
 
+import '../../fleet/controller/fleet_controller.dart';
+
 void showAddEquipmentBottomSheet(BuildContext context) {
-  final NavbarController navbarController = Get.find<NavbarController>();
+  final FleetController fleetController = Get.find<FleetController>();
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -127,7 +130,7 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                           children: [
                             InkWell(
                               onTap: (){
-                                navbarController.pickImage();
+                                fleetController.pickImage();
                               },
                               child: Container(
                                 height: 15.h,
@@ -145,7 +148,7 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                                     ]
                                 ),
                                 child: Obx(() {
-                                  final file = navbarController.imageFile.value;
+                                  final file = fleetController.imageFile.value;
 
                                   return file == null
                                       ? Center(
@@ -181,10 +184,10 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                                 right: 3.w,
                                 child: InkWell(
                                     onTap: (){
-                                      navbarController.clearImage();
+                                      fleetController.clearImage();
                                     },
                                     child: Obx((){
-                                      final file = navbarController.imageFile.value;
+                                      final file = fleetController.imageFile.value;
 
                                       return file == null ?
                                       SizedBox.shrink():
@@ -194,16 +197,21 @@ void showAddEquipmentBottomSheet(BuildContext context) {
                         ),
 
                         SizedBox(height: 2.h),
-                        customTextField("Equipment Type", "Enter Type (e.g., Generator, Mower)", isObscure: false.obs),
+                        customTextField(controller: fleetController.equipmentTypeController, "Equipment Type", "Enter Type (e.g., Generator, Mower)", isObscure: false.obs),
                         SizedBox(height: 2.h),
-                        customTextField("Model", "Enter Model (e.g., Honda, John Deere)", isObscure: false.obs),
+                        customTextField(controller: fleetController.modelController, "Model", "Enter Model (e.g., Honda, John Deere)", isObscure: false.obs),
                         SizedBox(height: 2.h),
-                        customTextField("Fuel Type", "Enter Fuel Type (e.g., Gas, Diesel)", isObscure: false.obs),
+                        customTextField(controller: fleetController.fuelTypeController, "Fuel Type", "Enter Fuel Type (e.g., Gas, Diesel)", isObscure: false.obs),
                         SizedBox(height: 2.h),
-                        customTextField("Tank Size (Gallons)", "Enter Size (e.g., 15, 20)", isObscure: false.obs,),
+                        customTextField(controller: fleetController.tankSizeController, "Tank Size (Gallons)", "Enter Size (e.g., 15, 20)", isObscure: false.obs,),
                         SizedBox(height: 4.h),
                         buttonWidget("Add Equipment", whiteColor, isGradient: true, onTap: (){
-                          customDialog(context, title: "Equipment added successfully!", btnText: "Ok", ontap: () => Get.until((route) => route.isFirst), ontapCancel: ()=> Get.until((route) => route.isFirst));
+                          fleetController.addEquipment(
+                              equipmentImage: fleetController.imageFile.value != null
+                                  ? File(fleetController.imageFile.value!.path)
+                                  : null,
+                              context: context
+                          );
                         }),
                         SizedBox(height: 4.h),
                       ],
@@ -217,7 +225,7 @@ void showAddEquipmentBottomSheet(BuildContext context) {
               child: InkWell(
                   onTap: () {
                     Get.back();
-                    navbarController.clearImage();
+                    fleetController.clearImage();
                   },
                   child: Icon(Icons.cancel_outlined, size: 21.sp,)
               ),)

@@ -25,6 +25,8 @@ class ProfileScreen extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
+    final name = prefs.getString(LocalDBKeys.USERFULLNAME) ?? "Username";
+    final email = prefs.getString(LocalDBKeys.USEREMAIL) ?? "Email";
     return Scaffold(
       body: radialBackground(
         child: Stack(
@@ -49,7 +51,7 @@ class ProfileScreen extends GetView<ProfileController> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               customText(
-                                text: "John Smith",
+                                text: name,
                                 fontSize: 19.sp,
                                 color: blueColor,
                                 fontFamily: "bl_melody",
@@ -61,7 +63,7 @@ class ProfileScreen extends GetView<ProfileController> {
                                 children: [
                                   Image.asset("assets/png/auth_image/field-icons-email.png", height: 2.25.h,),
                                   SizedBox(width: 3.w,),
-                                  customText(text: "john.smith@example.com", fontSize: 15.sp,
+                                  customText(text: email, fontSize: 15.sp,
                                   )
                                 ],
                               )

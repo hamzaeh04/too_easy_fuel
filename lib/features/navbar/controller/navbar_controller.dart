@@ -19,47 +19,16 @@ class NavbarController extends GetxController {
     FleetScreen(),
     ProfileScreen(),
   ];
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    controller.getVehicles();
+    controller.getEquipment();
+    super.onInit();
+  }
 
   void changeIndex(int index) {
     selectedIndex.value = index;
   }
 
-@override
-  void onInit() {
-    // TODO: implement onInit
-  controller.getVehicles();
-  controller.getEquipment();
-    super.onInit();
-  }
-  final ImagePicker picker = ImagePicker();
-
-  // ✅ correct nullable reactive type
-  Rxn<XFile> imageFile = Rxn<XFile>();
-  Rxn<XFile> imageFile2 = Rxn<XFile>();
-
-  Future<void> pickImage() async {
-    final XFile? picked = await picker.pickImage(
-      source: ImageSource.gallery,
-    );
-
-    if (picked != null) {
-      if (imageFile.value == null) {
-        imageFile.value = picked;
-      } else {
-        imageFile2.value = picked;
-      }
-    }
-  }
-
-  void clearImage() {
-    if (imageFile.value != null) {
-      imageFile.value = null;
-    } else {
-      imageFile2.value = null;
-    }
-  }
-  void clearAllImage() {
-    imageFile.value = null;
-    imageFile2.value = null;
-  }
 }

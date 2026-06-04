@@ -53,8 +53,17 @@ class FleetScreen extends GetView<FleetController> {
                   SizedBox(height: 2.h,),
                   Obx(() {
                     final vehiclesList = controller.vehiclesResponse.value?.data ?? [];
+                    if (controller.isLoading.value) {
+                      return SizedBox(
+                        height: 25.h,
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
                     if (vehiclesList.isEmpty) {
-                      return const Center(child: Padding(
+                      return const Center(
+                          child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 2.0),
                         child: Text("No vehicles found"),
                       ));
@@ -109,6 +118,14 @@ class FleetScreen extends GetView<FleetController> {
                   SizedBox(height: 2.h,),
                   Obx(() {
                     final equipmentList = controller.equipmentResponse.value?.data ?? [];
+                    if (controller.isLoadingEquipment.value) {
+                      return SizedBox(
+                        height: 25.h,
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
                     if (equipmentList.isEmpty) {
                       return const Center(child: Padding(
                         padding: EdgeInsets.symmetric(vertical: 2.0),
@@ -129,7 +146,7 @@ class FleetScreen extends GetView<FleetController> {
                             imgPath: data.equipmentImage,
                             title: "${data.equipmentType ?? ''} ${data.model ?? ''}".trim(),
                             subTitle:
-                            "${data.equipmentType ?? ''} ${data.model ?? ''} (${data.year ?? ''})",
+                            "${data.equipmentType ?? ''} ${data.model ?? ''}",
                             detail:
                             "Fuel: ${data.fuelType ?? ''}   Tank: ${data.tankSize ?? ''} gal",
                             port: "Port: ${data.port ?? ''}",
