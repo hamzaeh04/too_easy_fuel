@@ -14,7 +14,6 @@ class ApiEndPoints{
 
 
 
-
   //Vehical
   static const String getVehicles = '/fleet/vehicles?search=';
   static const String getEquipment = '/fleet/equipment?search=';
@@ -26,9 +25,15 @@ class ApiEndPoints{
     return "/fleet/equipment/${equipmentId}";
   }
 
+  static String updateVehicle (String vehicleId){
+    return "/fleet/vehicles/${vehicleId}";
+  }
+
+  static String updateEquipment (String equipmentId){
+    return "/fleet/equipment/${equipmentId}";
+  }
   //Profile
   static const String changePassword = '/auth/change-password';
   static const String updateProfile = '/users/profile';
-
 
 }

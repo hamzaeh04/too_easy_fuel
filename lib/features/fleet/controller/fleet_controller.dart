@@ -37,16 +37,16 @@ class FleetController extends GetxController{
   Rxn<XFile> imageFile = Rxn<XFile>();
   Rxn<XFile> imageFile2 = Rxn<XFile>();
 
-  Future<void> pickImage() async {
+  Future<void> pickImage({bool isSecond = false}) async {
     final XFile? picked = await picker.pickImage(
       source: ImageSource.gallery,
     );
 
     if (picked != null) {
-      if (imageFile.value == null) {
-        imageFile.value = picked;
-      } else {
+      if (isSecond) {
         imageFile2.value = picked;
+      } else {
+        imageFile.value = picked;
       }
     }
   }
@@ -301,7 +301,229 @@ class FleetController extends GetxController{
   }
 
 
+  Future<void> updateVehicle({
+    dynamic vehicleImage,
+    dynamic licensePlateImage,
+    BuildContext? context,
+    String? vehicleId,
+  }) async {
+    final fields = <String, String>{
+      "make": nameController.text.trim(),
+      "model": modelController.text.trim(),
+      "fuelType": fuelTypeController.text.trim(),
+      "tankSize": tankSizeController.text.trim(),
+      "port": portController.text.trim(),
+    };
 
+    await _sendMultipartRequestUpdateVehicle(
+      ApiEndPoints.updateVehicle(vehicleId ?? ""),
+      fields,
+      vehicleImage,
+      licensePlateImage,
+      context,
+    );
+  }
+
+  Future<void> _sendMultipartRequestUpdateVehicle(
+      String endpoint,
+      Map<String, String> fields,
+      dynamic vehicleImage,
+      dynamic licensePlateImage,
+      BuildContext? context,
+      ) async {
+    try {
+      EasyLoading.show(
+        status: 'Please wait...',
+        maskType: EasyLoadingMaskType.black,
+      );
+      final url = "${baseService.baseURL}${endpoint}";
+      final uri = Uri.parse(url);
+      print("Faaahhh ${url}");
+
+      var request = http.MultipartRequest('PATCH', uri);
+      final token = prefs.getString(LocalDBKeys.TOKEN);
+      print("vehicleImage: $vehicleImage");
+      print("licenseImage: $licensePlateImage");
+
+      /// Add Headers if required
+      request.headers.addAll({
+        "Accept": "application/json",
+        "Authorization": "Bearer $token",  // if needed
+      });
+
+      /// Add text fields
+      request.fields.addAll(fields);
+      print("📋 Fields: ${request.fields}");
+
+      /// Add vehicle image dynamically
+      if (vehicleImage is File) {
+        String ext = path.extension(vehicleImage.path).toLowerCase();
+
+        String mimeType = 'image/jpeg';
+
+        if (ext == '.png') {
+          mimeType = 'image/png';
+        } else if (ext == '.gif') {
+          mimeType = 'image/gif';
+        }
+
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'vehicleImage',
+            vehicleImage.path,
+            contentType: MediaType('image', mimeType.split('/')[1]),
+          ),
+        );
+      }
+      /// Add licensePlate image dynamically
+      if (licensePlateImage is File) {
+        String ext = path.extension(licensePlateImage.path).toLowerCase();
+
+        String mimeType = 'image/jpeg';
+
+        if (ext == '.png') {
+          mimeType = 'image/png';
+        } else if (ext == '.gif') {
+          mimeType = 'image/gif';
+        }
+
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'licensePlateImage',
+            licensePlateImage.path,
+            contentType: MediaType('image', mimeType.split('/')[1]),
+          ),
+        );
+      }
+
+
+      print("⏳ Sending request...");
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      print("📦 Status: ${response.statusCode}");
+      print("📦 Body: ${response.body}");
+
+      final jsonResponse = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Utils.showToast("${jsonResponse['message']}", false);
+        getVehicles();
+        clearVehicleFields();
+        customDialog(context!, title: "Vehicle added successfully!", btnText: "Ok", ontap: () => Get.until((route) => route.isFirst), ontapCancel: ()=> Get.until((route) => route.isFirst));
+      } else {
+        Utils.showToast(
+          jsonResponse['message'] ?? "Something went wrong",
+          true,
+        );
+      }
+    } catch (e) {
+      print("❌ Error: $e");
+      Utils.showToast("Check Internet Connection", true);
+    } finally {
+      EasyLoading.dismiss();
+    }
+  }
+
+  Future<void> updateEquipment({
+    dynamic equipmentImage,
+    BuildContext? context,
+    String? equipmentId,
+  }) async {
+    final fields = <String, String>{
+      "equipmentType": equipmentTypeController.text.trim(),
+      "model": modelController.text.trim(),
+      "fuelType": fuelTypeController.text.trim(),
+      "tankSize": tankSizeController.text.trim(),
+    };
+
+    await _sendMultipartRequestUpdateEquipment(
+      ApiEndPoints.updateEquipment(equipmentId ?? ""),
+      fields,
+      equipmentImage,
+      context,
+    );
+  }
+
+  Future<void> _sendMultipartRequestUpdateEquipment(
+      String endpoint,
+      Map<String, String> fields,
+      dynamic equipmentImage,
+      BuildContext? context,
+      ) async {
+    try {
+      EasyLoading.show(
+        status: 'Please wait...',
+        maskType: EasyLoadingMaskType.black,
+      );
+      final url = "${baseService.baseURL}${endpoint}";
+      final uri = Uri.parse(url);
+      print("Faaahhh ${url}");
+
+      var request = http.MultipartRequest('PATCH', uri);
+      final token = prefs.getString(LocalDBKeys.TOKEN);
+      print("equipmentImage: $equipmentImage");
+
+      /// Add Headers if required
+      request.headers.addAll({
+        "Accept": "application/json",
+        "Authorization": "Bearer $token",  // if needed
+      });
+
+      /// Add text fields
+      request.fields.addAll(fields);
+      print("📋 Fields: ${request.fields}");
+
+      /// Add vehicle image dynamically
+      if (equipmentImage is File) {
+        String ext = path.extension(equipmentImage.path).toLowerCase();
+
+        String mimeType = 'image/jpeg';
+
+        if (ext == '.png') {
+          mimeType = 'image/png';
+        } else if (ext == '.gif') {
+          mimeType = 'image/gif';
+        }
+
+        request.files.add(
+          await http.MultipartFile.fromPath(
+            'vehicleImage',
+            equipmentImage.path,
+            contentType: MediaType('image', mimeType.split('/')[1]),
+          ),
+        );
+      }
+
+      print("⏳ Sending request...");
+
+      final streamedResponse = await request.send();
+      final response = await http.Response.fromStream(streamedResponse);
+
+      print("📦 Status: ${response.statusCode}");
+      print("📦 Body: ${response.body}");
+
+      final jsonResponse = jsonDecode(response.body);
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Utils.showToast("${jsonResponse['message']}", false);
+        getEquipment();
+        clearVehicleFields();
+        customDialog(context!, title: "Vehicle added successfully!", btnText: "Ok", ontap: () => Get.until((route) => route.isFirst), ontapCancel: ()=> Get.until((route) => route.isFirst));
+      } else {
+        Utils.showToast(
+          jsonResponse['message'] ?? "Something went wrong",
+          true,
+        );
+      }
+    } catch (e) {
+      print("❌ Error: $e");
+      Utils.showToast("Check Internet Connection", true);
+    } finally {
+      EasyLoading.dismiss();
+    }
+  }
 
 
 

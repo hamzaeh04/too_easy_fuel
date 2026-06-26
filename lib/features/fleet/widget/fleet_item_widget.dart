@@ -1,12 +1,17 @@
+import 'package:cross_file/src/types/interface.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:too_easy_fuel/features/fleet/controller/fleet_controller.dart';
 import 'package:too_easy_fuel/widgets/customText_widget.dart';
 
 import '../../../constants/color_constants.dart';
+import '../../home/widget/add_equipment_bottom_sheet.dart';
+import '../../home/widget/add_vehicle_bottom_sheet.dart';
 import '../../setting/widgets/elevated_container.dart';
 
 Widget fleetItem({
+
   String? imgPath,
   String? title,
   String? subTitle,
@@ -15,8 +20,15 @@ Widget fleetItem({
   bool? vehical,
   String? vehicalId,
   String? equipmentId,
-  FleetController? controller
+  FleetController? controller,
+  BuildContext? context,
+  String? model,
+  String? fuelType,
+  String? tankSize,
+  String? vehicleImagePath,
+  String? licenseImagePath,
 }) {
+  final FleetController fleetController = Get.find<FleetController>();
   return elevatedContainer(
     vPadding: 2.h,
     hPadding: 5.w,
@@ -28,8 +40,9 @@ Widget fleetItem({
         Container(
           height: 7.h,
           width: 15.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(18.sp),
+            clipBehavior: Clip.antiAlias,
+            decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12.5.sp),
           ),
           child: Image.network(
             "http://app.yourwebsitemockup.net/tooEasyFuel-backend${imgPath ?? ''}",
@@ -90,6 +103,7 @@ Widget fleetItem({
         ),
 
         PopupMenuButton<String>(
+          padding: EdgeInsets.zero,
           icon: Icon(
             Icons.more_vert_sharp,
             size: 21.5.sp,
@@ -102,6 +116,23 @@ Widget fleetItem({
             if (value == 'edit') {
               // TODO: edit action
               print("Edit tapped");
+              if(vehical == true){
+
+                fleetController.nameController.text = title ?? "";
+                fleetController.modelController.text = model ?? "";
+                fleetController.fuelTypeController.text = fuelType ?? "";
+                fleetController.tankSizeController.text = tankSize ?? "";
+                fleetController.portController.text = port ?? "";
+                showAddVehicleBottomSheet(context!, isEdit: true, vehicleImage: vehicleImagePath, licenseImage: licenseImagePath, vehicleId: vehicalId);
+
+              } else{
+                fleetController.equipmentTypeController.text = title ?? "";
+                fleetController.modelController.text = model ?? "";
+                fleetController.fuelTypeController.text = fuelType ?? "";
+                fleetController.tankSizeController.text = tankSize ?? "";
+                showAddEquipmentBottomSheet(context!, isEdit: true, equipmentImage: vehicleImagePath, equipmentId: equipmentId);
+              }
+
             } else if (value == 'delete') {
               // TODO: delete action
                if (vehical == true || (vehicalId != null && vehicalId.isNotEmpty)) {
